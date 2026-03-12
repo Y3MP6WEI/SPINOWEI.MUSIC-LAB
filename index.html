@@ -33,12 +33,12 @@
             font-family: 'Outfit', 'Pretendard', 'Taipei Sans TC', sans-serif; 
         }
 
-        /* Neve Design - Glassmorphism */
+        /* Glassmorphism Neve Design */
         .glass-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 15px 35px rgba(29, 43, 68, 0.05);
+            box-shadow: 0 10px 30px rgba(29, 43, 68, 0.04);
             border-radius: 40px;
             overflow: hidden;
             display: flex;
@@ -49,29 +49,27 @@
 
         .glass-card:hover { 
             transform: translateY(-8px); 
-            box-shadow: 0 25px 50px rgba(29, 43, 68, 0.1);
+            box-shadow: 0 20px 40px rgba(29, 43, 68, 0.08);
         }
 
-        /* Enhanced Video Wrapper - Primary Focus */
+        /* Primary Video Focus - Full Bleed Top */
         .video-wrapper {
             position: relative;
             width: 100%;
             background: #000;
             overflow: hidden;
             line-height: 0;
-            /* Edge-to-edge feel */
-            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* YouTube: 16:9 - Expanded visual height */
+        /* YouTube: 16:9 */
         .yt-aspect { 
             padding-bottom: 56.25%; 
             height: 0; 
         }
         
-        /* Instagram: Taller for Reels */
+        /* Instagram: Optimized for 3-column height */
         .ig-aspect { 
-            padding-bottom: 130%; 
+            padding-bottom: 145%; 
             height: 0; 
             background: #fff; 
         }
@@ -82,9 +80,8 @@
             object-fit: cover;
         }
 
-        /* Text content section */
         .card-info {
-            padding: 2rem;
+            padding: 1.75rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -93,17 +90,17 @@
         .status-tag {
             background: var(--silk-red);
             color: white;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 800;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 6px;
             text-transform: uppercase;
             display: inline-block;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
-        .label-red { color: var(--silk-red); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
-        .label-value { color: var(--shelford-blue); font-weight: 700; font-size: 1rem; }
+        .label-red { color: var(--silk-red); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+        .label-value { color: var(--shelford-blue); font-weight: 700; font-size: 0.9rem; line-height: 1.3; }
 
         .section-header {
             border-left: 5px solid var(--silk-red);
@@ -113,13 +110,21 @@
 
         .subheader-line {
             display: block;
-            line-height: 1.6;
+            line-height: 1.5;
+        }
+
+        /* Expansive Container Control */
+        .expansive-container {
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
-<body class="p-6 md:p-12 lg:p-20">
+<body class="p-6 md:p-12">
 
-    <header class="max-w-7xl mx-auto mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+    <!-- Header: Expansive and Aligned -->
+    <header class="expansive-container mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
             <h1 class="text-5xl md:text-7xl font-800 font-outfit tracking-tighter uppercase mb-6">
                 Wei <span style="color: var(--silk-red)">Zih-Yun</span>
@@ -135,52 +140,53 @@
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto">
-        <!-- Grid switched to 2 columns on desktop for larger video presence -->
+    <main class="expansive-container">
+        <!-- 3-Column Grid Layout -->
         <section class="mb-24">
             <div class="section-header">
-                <h2 class="font-outfit text-3xl font-800 uppercase tracking-tight">Featured Sessions</h2>
+                <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Featured Sessions</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12" id="youtube-grid"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="youtube-grid"></div>
         </section>
 
         <section>
             <div class="section-header">
-                <h2 class="font-outfit text-3xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
+                <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12" id="instagram-grid"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="instagram-grid"></div>
         </section>
     </main>
 
-    <footer class="max-w-7xl mx-auto mt-32 py-12 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
-        &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
+    <footer class="expansive-container mt-32 py-12 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
+        &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN ｜ TAIPEI
     </footer>
 
+    <!-- Essential Instagram Script -->
     <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
         const YOUTUBE_PROJECTS = [
             { id: "yt1", type: "STUDIO", title: "GENBLUE - “Merry & Happy (TWICE)” Cover", role: "Recording Engineer", artist: "GENBLUE(젠블루)", venue: "TEN ENTERTAINMENT", videoId: "V4nQFpTLCiE" },
             { id: "yt2", type: "CONCERT", title: "KARD 2026 WORLD TOUR [DRIFT] IN TAIPEI", role: "Live Vocal Engineer", artist: "KARD", venue: "TICC @TAIPEI", videoId: "NdjqToNwg_E" },
-            { id: "yt3", type: "LIVE EVENT", title: "'SPOT' (Cover by 畢書盡Bii & GENBLUE)", role: "Re-Arrangement / Recording & Mixing Engineer", artist: "畢書盡Bii / GENBLUE(젠블루)", venue: "Taipei New Year's Eve Party 2026", videoId: "ZXt3r6oaACw" }
+            { id: "yt3", type: "LIVE EVENT", title: "'SPOT' (Cover by 畢書盡Bii & GENBLUE)", role: "Recording & Mixing Engineer", artist: "畢書盡Bii / GENBLUE", venue: "Taipei New Year's Eve Party 2026", videoId: "ZXt3r6oaACw" }
         ];
 
         const INSTAGRAM_PROJECTS = [
-            { id: "ig1", type: "CONCERT", title: "'我是真的很愛很愛你' (Original by YUAN of GENBLUE)", role: "Mixing Engineer / Acoustic Guitar Arrangement", artist: "YUAN of GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVWABgaAdQo" },
-            { id: "ig2", type: "CONCERT", title: "'STAR' (Cover by XXIN of GENBLUE)", role: "Mixing Engineer", artist: "XXIN of GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVV_sqbgY86" },
+            { id: "ig1", type: "CONCERT", title: "'我是真的很愛很愛你' (Original by YUAN of GENBLUE)", role: "Mixing Engineer / Guitar Arrangement", artist: "YUAN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWABgaAdQo" },
+            { id: "ig2", type: "CONCERT", title: "'STAR' (Cover by XXIN of GENBLUE)", role: "Mixing Engineer", artist: "XXIN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVV_sqbgY86" },
             { id: "ig3", type: "CONCERT", title: "GENBLUE 'Color Paper' (Official Live Video)", role: "Mixing Engineer", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVOQ2pCiXH7" },
-            { id: "ig4", type: "CONCERT", title: "'Poker Face' (Cover by LILI of GENBLUE)", role: "Mixing Engineer", artist: "LILI of GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVWAXchgTld" },
-            { id: "ig5", type: "CONCERT", title: "'Cruel Summer' (Cover by AYEON of GENBLUE)", role: "Mixing Engineer", artist: "AYEON of GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVTacIoAeN_" },
+            { id: "ig4", type: "CONCERT", title: "'Poker Face' (Cover by LILI of GENBLUE)", role: "Mixing Engineer", artist: "LILI of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWAXchgTld" },
+            { id: "ig5", type: "CONCERT", title: "'Cruel Summer' (Cover by AYEON of GENBLUE)", role: "Mixing Engineer", artist: "AYEON of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTacIoAeN_" },
             { id: "ig6", type: "CONCERT", title: "GENBLUE 'GIRL TALK' (Official Live Video)", role: "Mixing Engineer", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVJHN0NCSSy" },
-            { id: "ig7", type: "CONCERT", title: "'Bet On Me' (Cover by AYAKO of GENBLUE)", role: "Mixing Engineer", artist: "AYAKO of GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVTaY0QiU4F" },
-            { id: "ig8", type: "CONCERT", title: "'You & Me' (Cover by NICO of GENBLUE)", role: "Mixing Engineer", artist: "NICO of GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVTatGzAc3b" },
+            { id: "ig7", type: "CONCERT", title: "'Bet On Me' (Cover by AYAKO of GENBLUE)", role: "Mixing Engineer", artist: "AYAKO of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTaY0QiU4F" },
+            { id: "ig8", type: "CONCERT", title: "'You & Me' (Cover by NICO of GENBLUE)", role: "Mixing Engineer", artist: "NICO of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTatGzAc3b" },
             { id: "ig9", type: "CONCERT", title: "GENBLUE '天空沒有極限' (Official Live Video)", role: "Mixing Engineer", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVLpWFwgX8W" },
         ];
 
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
             
-            // Syntax Fix: Ensured ${project.videoId} is properly escaped
+            // Fix: Clean YouTube template injection
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
@@ -198,11 +204,11 @@
                     <div class="card-info">
                         <div class="flex-grow">
                             <span class="status-tag">${project.type}</span>
-                            <h3 class="text-2xl font-800 font-outfit leading-tight mb-2">${project.title}</h3>
-                            <p class="text-sm opacity-60 font-medium mb-8">${project.role}</p>
+                            <h3 class="text-xl font-800 font-outfit leading-tight mb-2">${project.title}</h3>
+                            <p class="text-xs opacity-60 font-medium mb-6">${project.role}</p>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-gray-100">
+                        <div class="grid grid-cols-2 gap-4 pt-5 border-t border-gray-100">
                             <div>
                                 <p class="label-red">Artist</p>
                                 <p class="label-value">${project.artist}</p>
