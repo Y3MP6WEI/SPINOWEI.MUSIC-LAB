@@ -260,22 +260,16 @@
                 players[project.id] = new YT.Player(`yt-player-${project.id}`, {
                     videoId: project.youtubeId,
                     playerVars: {
-                        'controls': 0,
-                        'disablekb': 1,
+                        'controls': 1,
+                        'disablekb': 0,
                         'rel': 0,
                         'modestbranding': 1
                     },
                     events: {
                         'onReady': (event) => {
-                            event.target.mute(); // Ensure video is muted for high-fidelity audio sync
                         }
                     }
-                });
-
-                // Initialize Audio
-                const audio = new Audio(project.audioSrc);
-                audio.preload = "auto";
-                audios[project.id] = audio;
+                }); 
             });
         }
 
