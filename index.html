@@ -40,24 +40,40 @@
 
         .glass-card:hover { transform: translateY(-5px); }
 
+        /* Container for the videos */
         .video-wrapper {
             position: relative;
             width: 100%;
-            background: #000;
+            background: #f0f0f0;
             border-radius: 24px;
             overflow: hidden;
             margin-bottom: 1.5rem;
         }
 
-        /* YouTube: Native 16:9 */
+        /* YouTube Container */
         .yt-aspect { padding-bottom: 56.25%; height: 0; }
-        
-        /* Instagram: Adjusted aspect ratio for Reels and Posts */
-        .ig-aspect { padding-bottom: 160%; height: 0; background: #fff; }
-
-        .video-wrapper iframe {
+        .yt-aspect iframe {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        }
+
+        /* Instagram Container: 
+           We let the Instagram script handle the height, but give it a 
+           stable container to prevent the "twisted" look. */
+        .ig-container {
+            width: 100%;
+            min-height: 450px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Target the official IG blockquote to ensure it fits the card */
+        .instagram-media {
+            margin: 0 !important;
+            border-radius: 24px !important;
+            min-width: 100% !important;
+            width: 100% !important;
         }
 
         .status-tag {
@@ -116,7 +132,7 @@
         &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
     </footer>
 
-    <!-- Essential Instagram Script -->
+    <!-- Official Instagram Embed Script -->
     <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
@@ -130,54 +146,52 @@
             { id: "ig1", type: "CONCERT", title: "GENBLUE 'Color Paper' (Official Live Video)", role: "Mixing Engineer", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVOQ2pCiXH7" },
             { id: "ig2", type: "CONCERT", title: "GENBLUE 'GIRL TALK' (Official Live Video)", role: "Mixing Engineer", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVJHN0NCSSy" },
             { id: "ig3", type: "CONCERT", title: "GENBLUE '天空沒有極限' (Official Live Video)", role: "Mixing Engineer", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVLpWFwgX8W" },
-            { id: "ig4", type: "CONCERT", title: "'STAR' (Cover by XXIN of GENBLUE)", role: "Mixing Engineer", artist: "XXIN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVV_sqbgY86" },
-            { id: "ig5", type: "CONCERT", title: "'Poker Face' (Cover by LILI of GENBLUE)", role: "Mixing Engineer", artist: "LILI of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWAXchgTld" },
-            { id: "ig6", type: "CONCERT", title: "'我是真的很愛很愛你' (Original by YUAN of GENBLUE)", role: "Mixing Engineer", artist: "YUAN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWABgaAdQo" },
-            { id: "ig7", type: "CONCERT", title: "'Bet On Me' (Cover by AYAKO of GENBLUE)", role: "Mixing Engineer", artist: "AYAKO of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTaY0QiU4F" },
-            { id: "ig8", type: "CONCERT", title: "'Cruel Summer' (Cover by AYEON of GENBLUE)", role: "Mixing Engineer", artist: "AYEON of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTacIoAeN_" },
-            { id: "ig9", type: "CONCERT", title: "'You & Me' (Cover by NICO of GENBLUE)", role: "Mixing Engineer", artist: "NICO of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTatGzAc3b" },
+            { id: "ig4", type: "CONCERT", title: "GENBLUE 'STAR' (Cover by XXIN of GENBLUE)", role: "Mixing Engineer", artist: "XXIN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVV_sqbgY86" },
+            { id: "ig5", type: "CONCERT", title: "GENBLUE 'Poker Face' (Cover by LILI of GENBLUE)", role: "Mixing Engineer", artist: "LILI of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWAXchgTld" },
+            { id: "ig6", type: "CONCERT", title: "GENBLUE '我是真的很愛很愛你' (Original by YUAN of GENBLUE)", role: "Mixing Engineer", artist: "YUAN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWABgaAdQo" },
+            { id: "ig7", type: "CONCERT", title: "GENBLUE 'Bet On Me' (Cover by AYAKO of GENBLUE)", role: "Mixing Engineer", artist: "AYAKO of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTaY0QiU4F" },
+            { id: "ig8", type: "CONCERT", title: "GENBLUE 'Cruel Summer' (Cover by AYEON of GENBLUE)", role: "Mixing Engineer", artist: "AYEON of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTacIoAeN_" },
+            { id: "ig9", type: "CONCERT", title: "GENBLUE 'You & Me' (Cover by NICO of GENBLUE)", role: "Mixing Engineer", artist: "NICO of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTatGzAc3b" },
             { id: "ig10", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "DVTatGzAc3b" },
             { id: "ig11", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" },
             { id: "ig12", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" }
         ];
 
         function createCard(project, platform) {
-            const isYT = platform === 'youtube';
-            
-            // Fixed YouTube URL bug and removed captioned=0 for IG to improve stability
-            const embedUrl = isYT 
-                ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
-                : `https://www.instagram.com/p/${project.videoId}/embed/`;
-
-            return `
+            if (platform === 'youtube') {
+                return `
                 <div class="glass-card p-6 md:p-8">
-                    <div class="video-wrapper ${isYT ? 'yt-aspect' : 'ig-aspect'}">
-                        <iframe 
-                            src="${embedUrl}" 
-                            class="instagram-media"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
+                    <div class="video-wrapper yt-aspect">
+                        <iframe src="https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1" allowfullscreen></iframe>
                     </div>
-
                     <div class="flex-grow">
                         <span class="status-tag">${project.type}</span>
                         <h3 class="text-xl font-800 font-outfit leading-tight mb-1">${project.title}</h3>
                         <p class="text-sm opacity-60 font-medium mb-6">${project.role}</p>
                     </div>
-
                     <div class="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100">
-                        <div>
-                            <p class="label-red">Artist</p>
-                            <p class="label-value">${project.artist}</p>
-                        </div>
-                        <div>
-                            <p class="label-red">Location / Venue</p>
-                            <p class="label-value">${project.venue}</p>
-                        </div>
+                        <div><p class="label-red">Artist</p><p class="label-value">${project.artist}</p></div>
+                        <div><p class="label-red">Location / Venue</p><p class="label-value">${project.venue}</p></div>
                     </div>
-                </div>
-            `;
+                </div>`;
+            } else {
+                // Official Blockquote method for Instagram to prevent redirects
+                return `
+                <div class="glass-card p-6 md:p-8">
+                    <div class="video-wrapper ig-container">
+                        <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/${project.videoId}/" data-instgrm-version="14"></blockquote>
+                    </div>
+                    <div class="flex-grow">
+                        <span class="status-tag">${project.type}</span>
+                        <h3 class="text-xl font-800 font-outfit leading-tight mb-1">${project.title}</h3>
+                        <p class="text-sm opacity-60 font-medium mb-6">${project.role}</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100">
+                        <div><p class="label-red">Artist</p><p class="label-value">${project.artist}</p></div>
+                        <div><p class="label-red">Location / Venue</p><p class="label-value">${project.venue}</p></div>
+                    </div>
+                </div>`;
+            }
         }
 
         function renderAll() {
@@ -187,10 +201,12 @@
             document.getElementById('instagram-grid').innerHTML = 
                 INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
 
-            // CRITICAL FIX: Tell Instagram script to process the new iframes
-            if (window.instgrm) {
-                window.instgrm.Embeds.process();
-            }
+            // Important: Wait for DOM to paint, then trigger Instagram process
+            setTimeout(() => {
+                if (window.instgrm) {
+                    window.instgrm.Embeds.process();
+                }
+            }, 100);
         }
 
         window.addEventListener('DOMContentLoaded', renderAll);
