@@ -7,7 +7,7 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -17,13 +17,17 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            /* Forced Chinese Font: PingFangTC-Light with fallbacks */
+            font-family: 'Inter', 'PingFangTC-Light', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
             background-color: var(--candy-bg);
             color: var(--shelford-blue);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .font-outfit { font-family: 'Outfit', sans-serif; }
+        .font-outfit { 
+            font-family: 'Outfit', 'PingFangTC-Light', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif; 
+        }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.98);
@@ -49,10 +53,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* YouTube: Native 16:9 */
         .yt-aspect { padding-bottom: 56.25%; height: 0; }
-        
-        /* Instagram: Adjusted aspect ratio for Reels and Posts */
         .ig-aspect { padding-bottom: 160%; height: 0; background: #fff; }
 
         .video-wrapper iframe {
@@ -141,7 +142,7 @@
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
             
-            // Fixed YouTube URL bug and removed captioned=0 for IG to improve stability
+            // Fixed the YouTube URL template literal bug
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
@@ -184,9 +185,11 @@
             document.getElementById('instagram-grid').innerHTML = 
                 INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
 
-            // CRITICAL FIX: Tell Instagram script to process the new iframes
+            // Force Instagram script to process the dynamically added frames
             if (window.instgrm) {
                 window.instgrm.Embeds.process();
+            } else {
+                // If script hasn't loaded yet, it will process on load automatically
             }
         }
 
