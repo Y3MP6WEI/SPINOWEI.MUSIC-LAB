@@ -25,9 +25,9 @@
 
         .font-outfit { font-family: 'Outfit', sans-serif; }
 
-        /* Neve Design - Glassmorphism */
+        /* Glassmorphism Neve Design */
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 15px 35px rgba(29, 43, 68, 0.05);
@@ -38,7 +38,6 @@
             height: 100%;
         }
 
-        /* Video Containers */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -47,18 +46,12 @@
             overflow: hidden;
         }
 
-        /* YouTube: Short & Wide */
-        .yt-aspect { padding-bottom: 56.25%; height: 0; margin-bottom: 1rem;}
+        /* Aspect Ratio Logic */
+        .yt-aspect { padding-bottom: 56.25%; height: 0; margin-bottom: 1rem; }
         
-        /* Instagram: Tall & Vertical */
-        .ig-aspect { flex-grow: 1; min-height: 500px; margin-bottom: 1rem; }
-        
-        /* For the Instagram Iframe specifically */
-        .ig-aspect iframe {
-            width: 100% !important;
-            height: 100% !important;
-            min-height: 500px;
-        }
+        /* Height adjustment for the tall IG block */
+        .ig-aspect { flex-grow: 1; height: 100%; min-height: 500px; margin-bottom: 1rem; }
+        .ig-aspect iframe { width: 100% !important; height: 100% !important; border: 0; position: absolute; top: 0; left: 0;}
 
         .video-wrapper iframe {
             position: absolute;
@@ -70,7 +63,7 @@
             position: absolute;
             inset: 0;
             z-index: 30;
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -91,7 +84,7 @@
 
         .play-button-circle svg { fill: white; width: 22px; height: 22px; margin-left: 4px; }
 
-        /* Labels */
+        /* Typography & Labels */
         .status-tag {
             background: var(--silk-red);
             color: white;
@@ -107,21 +100,21 @@
         .label-red { color: var(--silk-red); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
         .label-value { color: var(--shelford-blue); font-weight: 700; font-size: 0.85rem; line-height: 1.2; }
 
-        /* Grid Layout Logic */
-        .featured-grid {
+        /* Responsive Grid Logic */
+        .top-feature-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         @media (min-width: 1024px) {
-            .featured-grid {
-                grid-template-columns: 1fr 1fr; /* Two main columns */
+            .top-feature-grid {
+                grid-template-columns: 450px 1fr; /* Set fixed width for YT column */
             }
             .yt-stack {
                 display: flex;
                 flex-direction: column;
-                gap: 2rem; /* Spacing between the 2 stacked YT blocks */
+                gap: 1.5rem;
             }
         }
     </style>
@@ -142,32 +135,31 @@
     </header>
 
     <main class="max-w-7xl mx-auto">
-        <!-- TOP FEATURED SECTION: 2 YT on left stacking to match 1 IG on right -->
-        <div class="featured-grid mb-12" id="featured-container">
-            <!-- Left Side: 2 YouTube Stack -->
+        <!-- TOP FEATURED SECTION -->
+        <div class="top-feature-grid mb-12">
+            <!-- Left Side: 2 Stacked YouTube Cards -->
             <div class="yt-stack" id="yt-stack-container"></div>
-            <!-- Right Side: 1 Instagram Main -->
+            <!-- Right Side: 1 Tall Instagram Card -->
             <div id="ig-featured-container"></div>
         </div>
 
-        <!-- REST OF THE GRID: 11 Instagram Items -->
+        <!-- REMAINING GRID (Remaining 1 YT and 11 IG) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="standard-grid"></div>
     </main>
 
-    <footer class="max-w-7xl mx-auto mt-24 py-10 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
-        &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
-    </footer>
-
+    <!-- Essential Scripts -->
     <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- Official Instagram Script for handshaking -->
+    <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
         const MY_PROJECTS = [
-            // 3 YouTube Total
+            // 3 YouTube total
             { id: "yt1", platform: "youtube", type: "STUDIO", title: "GENBLUE - “Merry & Happy” Cover", role: "Recording Engineer", artist: "GENBLUE(젠블루)", venue: "TEN ENTERTAINMENT", videoId: "V4nQFpTLCiE" },
             { id: "yt2", platform: "youtube", type: "STUDIO", title: "Modern Solitude", role: "Lead Producer", artist: "Zih-Yun Solo", venue: "Private Facility", videoId: "9bZkp7q19f0" },
             { id: "yt3", platform: "youtube", type: "LIVE", title: "Cyberpunk Tour", role: "Technical Director", artist: "Aesthete 2077", venue: "Global Venues", videoId: "L_jWHffIx5E" },
             
-            // 12 Instagram Total
+            // 12 Instagram total
             { id: "ig1", platform: "instagram", type: "LIVE MIXING", title: "GENBLUE - Color Paper", role: "Mixing / Vocal Recording", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVOQ2pCiXH7" },
             { id: "ig2", platform: "instagram", type: "STUDIO", title: "Guitar Session #01", role: "Acoustic Guitarist", artist: "Wei Zih-Yun", venue: "Home Studio", videoId: "C1-60N_h9T3" },
             { id: "ig3", platform: "instagram", type: "STUDIO", title: "Mixing Workflow", role: "Engineer", artist: "Various Artists", venue: "Studio A", videoId: "C68qS-vug7f" },
@@ -184,10 +176,13 @@
 
         const players = {};
 
-        function createCard(project) {
+        function createCard(project, tallMode = false) {
             const isYT = project.platform === 'youtube';
+            // Use /p/ instead of /reels/ for maximum embed stability
+            const igUrl = `https://www.instagram.com/p/${project.videoId}/embed/`;
+
             return `
-                <div class="glass-card p-6 md:p-8">
+                <div class="glass-card p-6">
                     <div class="video-wrapper ${isYT ? 'yt-aspect' : 'ig-aspect'}">
                         <div class="play-overlay" id="overlay-${project.id}" onclick="handlePlay('${project.id}', '${project.platform}')">
                             <div class="play-button-circle">
@@ -196,7 +191,7 @@
                         </div>
                         ${isYT 
                             ? `<div id="player-${project.id}"></div>`
-                            : `<iframe id="player-${project.id}" src="https://www.instagram.com/reels/${project.videoId}/embed/" allowtransparency="true" frameborder="0" scrolling="no"></iframe>`
+                            : `<iframe id="player-${project.id}" src="${igUrl}" allowtransparency="true" frameborder="0" scrolling="no"></iframe>`
                         }
                     </div>
                     <div class="flex-grow">
@@ -219,19 +214,11 @@
         }
 
         function renderAll() {
-            const ytStack = document.getElementById('yt-stack-container');
-            const igFeature = document.getElementById('ig-featured-container');
-            const grid = document.getElementById('standard-grid');
-
-            // 1. Stack 2 YouTube items
-            ytStack.innerHTML = createCard(MY_PROJECTS[0]) + createCard(MY_PROJECTS[1]);
+            document.getElementById('yt-stack-container').innerHTML = createCard(MY_PROJECTS[0]) + createCard(MY_PROJECTS[1]);
+            document.getElementById('ig-featured-container').innerHTML = createCard(MY_PROJECTS[3]);
             
-            // 2. 1 Tall Instagram to match height
-            igFeature.innerHTML = createCard(MY_PROJECTS[3]);
-
-            // 3. The rest (Remaining 1 YT and 11 IG)
             const remaining = [MY_PROJECTS[2], ...MY_PROJECTS.slice(4)];
-            grid.innerHTML = remaining.map(p => createCard(p)).join('');
+            document.getElementById('standard-grid').innerHTML = remaining.map(p => createCard(p)).join('');
         }
 
         function onYouTubeIframeAPIReady() {
@@ -239,7 +226,7 @@
                 if(project.platform === 'youtube') {
                     players[project.id] = new YT.Player(`player-${project.id}`, {
                         videoId: project.videoId,
-                        playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0, 'modestbranding': 1 }
+                        playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0 }
                     });
                 }
             });
@@ -250,8 +237,7 @@
             if (platform === 'youtube' && players[id]) {
                 players[id].playVideo();
             }
-            // For Instagram: The overlay is gone, user clicks native IG play button. 
-            // Using /reels/ ID in the URL ensures better in-page playback.
+            // For Instagram: The red overlay hides, revealing the Instagram play button.
         }
 
         window.addEventListener('DOMContentLoaded', renderAll);
