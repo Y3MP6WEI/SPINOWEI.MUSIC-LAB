@@ -3,170 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEI ZIH-YUN | Music Producer Portfolio</title>
-    <!-- Tailwind for Layout -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+    <title>WEI ZIH-YUN | Music Producer</title>
     
+    <!-- Tailwind CSS for Layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Outfit for titles, Inter for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --shelford-blue: #1D2B44;
             --silk-red: #C8102E;
-            --candy-bg: #f0f4f8;
+            --candy-bg: #f8fafc;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--candy-bg);
             color: var(--shelford-blue);
-            overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(29, 43, 68, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(200, 16, 46, 0.05) 0px, transparent 50%);
+            min-height: 100vh;
         }
 
-        h1, h2, h3, .font-outfit { font-family: 'Outfit', sans-serif; }
+        .font-outfit { font-family: 'Outfit', sans-serif; }
 
         /* Neve Design - Glassmorphism */
         .glass-card {
             background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 20px 40px rgba(29, 43, 68, 0.08);
-            border-radius: 24px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 50px rgba(29, 43, 68, 0.05);
+            border-radius: 32px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
         }
 
         .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px rgba(200, 16, 46, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(200, 16, 46, 0.1);
         }
 
-        /* Candy Accents */
-        .btn-primary {
-            background: var(--silk-red);
-            color: white;
-            box-shadow: 0 10px 20px rgba(200, 16, 46, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
-
-        /* Audio Sync Visualizer styling */
-        .sync-active {
-            border: 2px solid var(--silk-red) !important;
-        }
-
-        .custom-cover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 20;
-            background-size: cover;
-            background-position: center;
-            transition: opacity 0.5s ease;
-            border-radius: 16px;
-        }
-
-        .playing .custom-cover {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .video-container {
+        /* Video Container Styling */
+        .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
-            overflow: hidden;
-            border-radius: 16px;
             background: #000;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
         }
 
-        .video-container iframe {
+        .video-wrapper iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Block interaction to force custom play button */
+            border: 0;
         }
 
+        /* Play Overlay */
         .play-overlay {
             position: absolute;
             inset: 0;
+            z-index: 10;
+            background: rgba(29, 43, 68, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 30;
             cursor: pointer;
+            transition: opacity 0.3s ease;
         }
 
-        .play-button-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(200, 16, 46, 0.9);
+        .play-button {
+            width: 70px;
+            height: 70px;
+            background: var(--silk-red);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(200, 16, 46, 0.4);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .play-overlay:hover .play-button-icon {
+        .play-overlay:hover .play-button {
             transform: scale(1.15);
         }
 
-        /* Label Styles */
-        .label-tag {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 4px 12px;
-            border-radius: 100px;
-            background: var(--shelford-blue);
-            color: white;
-            font-weight: 700;
+        .play-button svg {
+            fill: white;
+            width: 30px;
+            height: 30px;
+            margin-left: 4px;
         }
 
-        .label-red { background: var(--silk-red); }
+        /* Labels */
+        .type-tag {
+            background: var(--silk-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .detail-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--silk-red);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
+            margin-bottom: 2px;
+        }
+
+        .detail-value {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--shelford-blue);
+        }
+
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
     </style>
 </head>
-<body class="p-4 md:p-12">
+<body class="p-6 md:p-12 lg:p-20">
 
-    <!-- Header -->
-    <nav class="max-w-6xl mx-auto flex justify-between items-center mb-16">
-        <div class="text-2xl font-800 font-outfit tracking-tighter" style="color: var(--shelford-blue)">
-            WEI <span style="color: var(--silk-red)">ZIH-YUN</span>
+    <!-- Header Section -->
+    <header class="max-w-6xl mx-auto mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
+        <div>
+            <h1 class="text-4xl md:text-6xl font-800 font-outfit tracking-tighter uppercase">
+                Wei <span style="color: var(--silk-red)">Zih-Yun</span>
+            </h1>
+            <p class="text-lg opacity-60 mt-2 font-medium">Music Producer & Technical Director</p>
         </div>
-        <div class="hidden md:flex space-x-8 font-semibold opacity-70">
-            <a href="#" class="hover:text-red-600">Works</a>
-            <a href="#" class="hover:text-red-600">About</a>
-            <a href="#" class="hover:text-red-600">Contact</a>
+        <div class="flex gap-4">
+            <div class="h-[2px] w-12 bg-[#C8102E] self-center opacity-30"></div>
+            <span class="text-xs font-bold tracking-[0.2em] uppercase opacity-40">Selected Works 24/25</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="max-w-4xl mx-auto text-center mb-24">
-        <h1 class="text-5xl md:text-7xl font-800 font-outfit mb-6" style="color: var(--shelford-blue)">
-            High-Fidelity <br><span style="color: var(--silk-red)">Sonic Architecture.</span>
-        </h1>
-        <p class="text-xl opacity-60 max-w-2xl mx-auto leading-relaxed">
-            Music Producer & Mix Engineer. Delivering studio-grade audio quality synchronized with visual excellence.
-        </p>
     </header>
 
-    <!-- Projects Grid -->
-    <main id="project-grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-        <!-- Projects will be injected here by JS -->
+    <!-- Project Grid -->
+    <main id="project-grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+        <!-- Projects injected by JS -->
     </main>
 
-    <footer class="max-w-6xl mx-auto mt-32 py-12 border-t border-gray-200 text-center opacity-50">
-        <p>© <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN. All Rights Reserved.</p>
+    <footer class="max-w-6xl mx-auto mt-24 pt-12 border-t border-gray-200 text-center opacity-30 text-sm font-bold tracking-widest uppercase">
+        &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
     </footer>
 
     <!-- YouTube API -->
@@ -174,157 +165,136 @@
 
     <script>
         /**
-         * MANUAL CMS - UPDATE YOUR PROJECTS HERE
-         * Types: 'live' or 'production'
+         * MANUAL CMS
+         * Add your projects here. 
+         * The 'youtubeId' is the code after "v=" in a YouTube URL.
          */
         const MY_PROJECTS = [
             {
-                id: "p1",
-                title: "GENBLUE(젠블루) - “Merry & Happy (TWICE)” Cover",
-                role: "RECORDING ENGINEER",
+                id: "work-1",
+                title: "Electronic Symphony No. 4",
+                role: "Mix & Master Engineer",
                 type: "STUDIO",
-                artist: "GENBLUE(젠블루)",
-                venue: "TEN ENTERTAINMENT",
-                attendance: "",
-                youtubeId: "V4nQFpTLCiE", // Replace with real ID
+                artist: "Neon Architecture",
+                venue: "Redwood Studios",
+                youtubeId: "dQw4w9WgXcQ" 
             },
             {
-                id: "p2",
-                title: "Silk & Shelford Studio Sessions",
-                role: "Mixing & Mastering",
-                type: "production",
-                artist: "YUN",
-                venue: "N/A",
-                attendance: "N/A",
-                youtubeId: "3S_fT7VnKUM", // Replace with real ID
-                audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", // Replace with your .wav link
-                coverImg: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1000"
+                id: "work-2",
+                title: "Live at the National Arena",
+                role: "Playback Engineer",
+                type: "LIVE",
+                artist: "The Velvet Echoes",
+                venue: "Taipei Music Center",
+                youtubeId: "3S_fT7VnKUM"
+            },
+            {
+                id: "work-3",
+                title: "Modern Solitude",
+                role: "Lead Producer",
+                type: "STUDIO",
+                artist: "Zih-Yun Solo Project",
+                venue: "Private Facility",
+                youtubeId: "9bZkp7q19f0"
+            },
+            {
+                id: "work-4",
+                title: "Cyberpunk World Tour",
+                role: "Technical Director",
+                type: "LIVE",
+                artist: "Aesthete 2077",
+                venue: "Various Global Venues",
+                youtubeId: "L_jWHffIx5E"
             }
         ];
 
-        const players = {}; // To store YT player instances
-        const audios = {};  // To store HTML5 Audio instances
+        // Object to store YouTube Player instances
+        const players = {};
 
-        // Initialize the Grid
+        /**
+         * Initialize the Gallery
+         */
         function renderProjects() {
             const grid = document.getElementById('project-grid');
+            
             grid.innerHTML = MY_PROJECTS.map(project => `
-                <div class="glass-card p-6 flex flex-col" id="card-${project.id}">
-                    <!-- Video Section -->
-                    <div class="video-container mb-6 group" id="container-${project.id}">
-                        <div class="custom-cover" id="cover-${project.id}" style="background-image: url('${project.coverImg}')"></div>
-                        
-                        <div class="play-overlay" onclick="togglePlayback('${project.id}')" id="overlay-${project.id}">
-                            <div class="play-button-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <div class="glass-card p-6 md:p-8">
+                    <div class="video-wrapper">
+                        <!-- Play Overlay: Disappears on click -->
+                        <div class="play-overlay" id="overlay-${project.id}" onclick="initiatePlayback('${project.id}')">
+                            <div class="play-button">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
                         </div>
-
-                        <div id="yt-player-${project.id}"></div>
+                        <!-- YouTube Iframe -->
+                        <div id="player-${project.id}"></div>
                     </div>
 
-                    <!-- Info Section -->
-                    <div class="flex-grow">
-                        <div class="flex gap-2 mb-3">
-                            <span class="label-tag ${project.type === 'live' ? 'label-red' : ''}">${project.type}</span>
-                            <span class="label-tag" style="background: #ddd; color: #333">${project.role}</span>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="type-tag">${project.type}</span>
+                            <h3 class="text-2xl font-800 font-outfit mt-3 leading-tight">${project.title}</h3>
+                            <p class="text-sm font-medium opacity-60 mt-1">${project.role}</p>
                         </div>
-                        <h3 class="text-2xl font-800 mb-2">${project.title}</h3>
-                        
-                        ${project.type === 'live' ? `
-                            <div class="grid grid-cols-3 gap-4 mt-4 py-4 border-t border-gray-100">
-                                <div>
-                                    <p class="text-[10px] uppercase opacity-40 font-bold">Artist</p>
-                                    <p class="text-sm font-semibold">${project.artist}</p>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] uppercase opacity-40 font-bold">Venue</p>
-                                    <p class="text-sm font-semibold">${project.venue}</p>
-                                </div>
-                                <div>
-                                    <p class="text-[10px] uppercase opacity-40 font-bold">Attendance</p>
-                                    <p class="text-sm font-semibold">${project.attendance}</p>
-                                </div>
-                            </div>
-                        ` : `
-                            <p class="text-sm opacity-60">Studio Production for <strong>${project.artist}</strong></p>
-                        `}
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-gray-100">
+                        <div>
+                            <p class="detail-label">Artist</p>
+                            <p class="detail-value">${project.artist}</p>
+                        </div>
+                        <div>
+                            <p class="detail-label">Location / Venue</p>
+                            <p class="detail-value">${project.venue}</p>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // YouTube API Ready Callback
+        /**
+         * YouTube API Callback
+         * Automatically called when API script is loaded
+         */
         function onYouTubeIframeAPIReady() {
             MY_PROJECTS.forEach(project => {
-                players[project.id] = new YT.Player(`yt-player-${project.id}`, {
+                players[project.id] = new YT.Player(`player-${project.id}`, {
                     videoId: project.youtubeId,
                     playerVars: {
+                        'autoplay': 0,
                         'controls': 1,
-                        'disablekb': 0,
+                        'modestbranding': 1,
                         'rel': 0,
-                        'modestbranding': 1
+                        'showinfo': 0
                     },
                     events: {
-                        'onReady': (event) => {
-                        }
+                        'onReady': onPlayerReady
                     }
-                }); 
+                });
             });
         }
 
-        // Core Sync Logic
-        function togglePlayback(id) {
-            const player = players[id];
-            const audio = audios[id];
-            const container = document.getElementById(`container-${id}`);
+        function onPlayerReady(event) {
+            // Player is loaded and ready for instructions
+        }
+
+        /**
+         * Playback Logic
+         * Hides the custom overlay and starts the video
+         */
+        function initiatePlayback(id) {
             const overlay = document.getElementById(`overlay-${id}`);
-
-            if (audio.paused) {
-                // Play logic
-                stopAllOthers(id);
-                container.classList.add('playing');
-                overlay.style.display = 'none';
-                
-                audio.play();
-                player.playVideo();
-
-                // Sync Loop: Every 500ms, ensure video matches audio
-                const syncInterval = setInterval(() => {
-                    if (audio.paused) {
-                        clearInterval(syncInterval);
-                        return;
-                    }
-                    
-                    const audioTime = audio.currentTime;
-                    const videoTime = player.getCurrentTime();
-
-                    // If drift is > 0.15s, hard sync
-                    if (Math.abs(audioTime - videoTime) > 0.15) {
-                        player.seekTo(audioTime, true);
-                    }
-                }, 500);
-
-            } else {
-                // Pause logic
-                audio.pause();
-                player.pauseVideo();
+            if (overlay) {
+                overlay.style.display = 'none'; // Completely remove interaction layer
+            }
+            
+            if (players[id] && players[id].playVideo) {
+                players[id].playVideo();
             }
         }
 
-        function stopAllOthers(currentId) {
-            MY_PROJECTS.forEach(p => {
-                if (p.id !== currentId) {
-                    audios[p.id].pause();
-                    players[p.id].pauseVideo();
-                    document.getElementById(`container-${p.id}`).classList.remove('playing');
-                    document.getElementById(`overlay-${p.id}`).style.display = 'flex';
-                }
-            });
-        }
-
-        // Run render
-        renderProjects();
+        // Run rendering on load
+        window.addEventListener('DOMContentLoaded', renderProjects);
     </script>
 </body>
 </html>
