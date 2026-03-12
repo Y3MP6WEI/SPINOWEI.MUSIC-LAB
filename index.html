@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEI ZIH-YUN | Music Producer Portfolio</title>
+    <!-- Tailwind for Layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --shelford-blue: #1D2B44;
+            --silk-red: #C8102E;
+            --candy-bg: #f0f4f8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--candy-bg);
+            color: var(--shelford-blue);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-outfit { font-family: 'Outfit', sans-serif; }
+
+        /* Neve Design - Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px rgba(29, 43, 68, 0.08);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(200, 16, 46, 0.12);
+        }
+
+        /* Candy Accents */
+        .btn-primary {
+            background: var(--silk-red);
+            color: white;
+            box-shadow: 0 10px 20px rgba(200, 16, 46, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Audio Sync Visualizer styling */
+        .sync-active {
+            border: 2px solid var(--silk-red) !important;
+        }
+
+        .custom-cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.5s ease;
+            border-radius: 16px;
+        }
+
+        .playing .custom-cover {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Block interaction to force custom play button */
+        }
+
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 30;
+            cursor: pointer;
+        }
+
+        .play-button-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(200, 16, 46, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .play-overlay:hover .play-button-icon {
+            transform: scale(1.15);
+        }
+
+        /* Label Styles */
+        .label-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: var(--shelford-blue);
+            color: white;
+            font-weight: 700;
+        }
+
+        .label-red { background: var(--silk-red); }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <!-- Header -->
+    <nav class="max-w-6xl mx-auto flex justify-between items-center mb-16">
+        <div class="text-2xl font-800 font-outfit tracking-tighter" style="color: var(--shelford-blue)">
+            WEI <span style="color: var(--silk-red)">ZIH-YUN</span>
+        </div>
+        <div class="hidden md:flex space-x-8 font-semibold opacity-70">
+            <a href="#" class="hover:text-red-600">Works</a>
+            <a href="#" class="hover:text-red-600">About</a>
+            <a href="#" class="hover:text-red-600">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-4xl mx-auto text-center mb-24">
+        <h1 class="text-5xl md:text-7xl font-800 font-outfit mb-6" style="color: var(--shelford-blue)">
+            High-Fidelity <br><span style="color: var(--silk-red)">Sonic Architecture.</span>
+        </h1>
+        <p class="text-xl opacity-60 max-w-2xl mx-auto leading-relaxed">
+            Music Producer & Mix Engineer. Delivering studio-grade audio quality synchronized with visual excellence.
+        </p>
+    </header>
+
+    <!-- Projects Grid -->
+    <main id="project-grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Projects will be injected here by JS -->
+    </main>
+
+    <footer class="max-w-6xl mx-auto mt-32 py-12 border-t border-gray-200 text-center opacity-50">
+        <p>© <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN. All Rights Reserved.</p>
+    </footer>
+
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        /**
+         * MANUAL CMS - UPDATE YOUR PROJECTS HERE
+         * Types: 'live' or 'production'
+         */
+        const MY_PROJECTS = [
+            {
+                id: "p1",
+                title: "Electronic Orchestration 2024",
+                role: "Music Director / Lead Producer",
+                type: "live",
+                artist: "The Synth Collective",
+                venue: "Taipei Music Center",
+                attendance: "5,500",
+                youtubeId: "V4nQFpTLCiE", // Replace with real ID
+                audioSrc: "", 
+                coverImg: ""
+            },
+            {
+                id: "p2",
+                title: "Silk & Shelford Studio Sessions",
+                role: "Mixing & Mastering",
+                type: "production",
+                artist: "YUN",
+                venue: "N/A",
+                attendance: "N/A",
+                youtubeId: "3S_fT7VnKUM", // Replace with real ID
+                audioSrc: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", // Replace with your .wav link
+                coverImg: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1000"
+            }
+        ];
+
+        const players = {}; // To store YT player instances
+        const audios = {};  // To store HTML5 Audio instances
+
+        // Initialize the Grid
+        function renderProjects() {
+            const grid = document.getElementById('project-grid');
+            grid.innerHTML = MY_PROJECTS.map(project => `
+                <div class="glass-card p-6 flex flex-col" id="card-${project.id}">
+                    <!-- Video Section -->
+                    <div class="video-container mb-6 group" id="container-${project.id}">
+                        <div class="custom-cover" id="cover-${project.id}" style="background-image: url('${project.coverImg}')"></div>
+                        
+                        <div class="play-overlay" onclick="togglePlayback('${project.id}')" id="overlay-${project.id}">
+                            <div class="play-button-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+
+                        <div id="yt-player-${project.id}"></div>
+                    </div>
+
+                    <!-- Info Section -->
+                    <div class="flex-grow">
+                        <div class="flex gap-2 mb-3">
+                            <span class="label-tag ${project.type === 'live' ? 'label-red' : ''}">${project.type}</span>
+                            <span class="label-tag" style="background: #ddd; color: #333">${project.role}</span>
+                        </div>
+                        <h3 class="text-2xl font-800 mb-2">${project.title}</h3>
+                        
+                        ${project.type === 'live' ? `
+                            <div class="grid grid-cols-3 gap-4 mt-4 py-4 border-t border-gray-100">
+                                <div>
+                                    <p class="text-[10px] uppercase opacity-40 font-bold">Artist</p>
+                                    <p class="text-sm font-semibold">${project.artist}</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase opacity-40 font-bold">Venue</p>
+                                    <p class="text-sm font-semibold">${project.venue}</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] uppercase opacity-40 font-bold">Attendance</p>
+                                    <p class="text-sm font-semibold">${project.attendance}</p>
+                                </div>
+                            </div>
+                        ` : `
+                            <p class="text-sm opacity-60">Studio Production for <strong>${project.artist}</strong></p>
+                        `}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // YouTube API Ready Callback
+        function onYouTubeIframeAPIReady() {
+            MY_PROJECTS.forEach(project => {
+                players[project.id] = new YT.Player(`yt-player-${project.id}`, {
+                    videoId: project.youtubeId,
+                    playerVars: {
+                        'controls': 0,
+                        'disablekb': 1,
+                        'rel': 0,
+                        'modestbranding': 1
+                    },
+                    events: {
+                        'onReady': (event) => {
+                            event.target.mute(); // Ensure video is muted for high-fidelity audio sync
+                        }
+                    }
+                });
+
+                // Initialize Audio
+                const audio = new Audio(project.audioSrc);
+                audio.preload = "auto";
+                audios[project.id] = audio;
+            });
+        }
+
+        // Core Sync Logic
+        function togglePlayback(id) {
+            const player = players[id];
+            const audio = audios[id];
+            const container = document.getElementById(`container-${id}`);
+            const overlay = document.getElementById(`overlay-${id}`);
+
+            if (audio.paused) {
+                // Play logic
+                stopAllOthers(id);
+                container.classList.add('playing');
+                overlay.style.display = 'none';
+                
+                audio.play();
+                player.playVideo();
+
+                // Sync Loop: Every 500ms, ensure video matches audio
+                const syncInterval = setInterval(() => {
+                    if (audio.paused) {
+                        clearInterval(syncInterval);
+                        return;
+                    }
+                    
+                    const audioTime = audio.currentTime;
+                    const videoTime = player.getCurrentTime();
+
+                    // If drift is > 0.15s, hard sync
+                    if (Math.abs(audioTime - videoTime) > 0.15) {
+                        player.seekTo(audioTime, true);
+                    }
+                }, 500);
+
+            } else {
+                // Pause logic
+                audio.pause();
+                player.pauseVideo();
+            }
+        }
+
+        function stopAllOthers(currentId) {
+            MY_PROJECTS.forEach(p => {
+                if (p.id !== currentId) {
+                    audios[p.id].pause();
+                    players[p.id].pauseVideo();
+                    document.getElementById(`container-${p.id}`).classList.remove('playing');
+                    document.getElementById(`overlay-${p.id}`).style.display = 'flex';
+                }
+            });
+        }
+
+        // Run render
+        renderProjects();
+    </script>
+</body>
+</html>
