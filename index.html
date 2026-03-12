@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEI ZIH-YUN | Music Producer</title>
+    <title>WEI ZIH-YUN | Music Producer Portfolio</title>
     
     <!-- Tailwind CSS for Layout -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,6 +58,11 @@
             margin-bottom: 1.5rem;
         }
 
+        /* Adjust Instagram containers to be taller (Portrait/Square feel) */
+        .video-wrapper.platform-instagram {
+            padding-bottom: 100%; /* Square aspect for IG compatibility */
+        }
+
         .video-wrapper iframe {
             position: absolute;
             top: 0;
@@ -71,13 +76,13 @@
         .play-overlay {
             position: absolute;
             inset: 0;
-            z-index: 10;
-            background: rgba(29, 43, 68, 0.2);
+            z-index: 20;
+            background: rgba(29, 43, 68, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .play-button {
@@ -131,7 +136,6 @@
             color: var(--shelford-blue);
         }
 
-        /* Smooth Scroll */
         html { scroll-behavior: smooth; }
     </style>
 </head>
@@ -166,68 +170,78 @@
     <script>
         /**
          * MANUAL CMS
-         * Add your projects here. 
-         * The 'youtubeId' is the code after "v=" in a YouTube URL.
+         * platform: 'youtube' or 'instagram'
+         * videoId: YouTube ID (from URL) OR Instagram ID (from /p/ID/ or /reel/ID/)
          */
         const MY_PROJECTS = [
             {
                 id: "work-1",
+                platform: "youtube",
                 title: "GENBLUE - “Merry & Happy (TWICE)” Cover",
                 role: "Recording Engineer",
                 type: "STUDIO",
                 artist: "GENBLUE(젠블루)",
                 venue: "TEN ENTERTAINMENT",
-                youtubeId: "V4nQFpTLCiE" 
+                videoId: "V4nQFpTLCiE" 
             },
             {
                 id: "work-2",
-                title: "Live at the National Arena",
+                platform: "instagram",
+                title: "Live Session Breakdown",
                 role: "Playback Engineer",
                 type: "LIVE",
                 artist: "The Velvet Echoes",
                 venue: "Taipei Music Center",
-                youtubeId: "3S_fT7VnKUM"
+                videoId: "C68qS-vug7f" // Example Instagram ID
             },
             {
                 id: "work-3",
+                platform: "youtube",
                 title: "Modern Solitude",
                 role: "Lead Producer",
                 type: "STUDIO",
                 artist: "Zih-Yun Solo Project",
                 venue: "Private Facility",
-                youtubeId: "9bZkp7q19f0"
+                videoId: "9bZkp7q19f0"
             },
             {
                 id: "work-4",
-                title: "Cyberpunk World Tour",
-                role: "Technical Director",
-                type: "LIVE",
-                artist: "Aesthete 2077",
-                venue: "Various Global Venues",
-                youtubeId: "L_jWHffIx5E"
+                platform: "instagram",
+                title: "Studio Guitar Workflow",
+                role: "Acoustic Guitarist",
+                type: "STUDIO",
+                artist: "WEI ZIH-YUN",
+                venue: "Home Studio",
+                videoId: "C1-60N_h9T3" // Example Instagram ID
             }
         ];
 
-        // Object to store YouTube Player instances
         const players = {};
 
-        /**
-         * Initialize the Gallery
-         */
         function renderProjects() {
             const grid = document.getElementById('project-grid');
             
-            grid.innerHTML = MY_PROJECTS.map(project => `
+            grid.innerHTML = MY_PROJECTS.map(project => {
+                const isYT = project.platform === 'youtube';
+                const embedUrl = isYT 
+                    ? '' // Handled by YT API
+                    : `https://www.instagram.com/p/${project.videoId}/embed/captioned/`;
+
+                return `
                 <div class="glass-card p-6 md:p-8">
-                    <div class="video-wrapper">
-                        <!-- Play Overlay: Disappears on click -->
-                        <div class="play-overlay" id="overlay-${project.id}" onclick="initiatePlayback('${project.id}')">
+                    <div class="video-wrapper platform-${project.platform}">
+                        <!-- Play Overlay -->
+                        <div class="play-overlay" id="overlay-${project.id}" onclick="initiatePlayback('${project.id}', '${project.platform}')">
                             <div class="play-button">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
                         </div>
-                        <!-- YouTube Iframe -->
-                        <div id="player-${project.id}"></div>
+
+                        <!-- Player Container -->
+                        ${isYT 
+                            ? `<div id="player-${project.id}"></div>`
+                            : `<iframe id="player-${project.id}" src="${embedUrl}" allowtransparency="true" allowfullscreen="true" frameborder="0" scrolling="no"></iframe>`
+                        }
                     </div>
 
                     <div class="flex justify-between items-start mb-4">
@@ -249,51 +263,44 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         /**
-         * YouTube API Callback
-         * Automatically called when API script is loaded
+         * Initialize YouTube API for YouTube projects only
          */
         function onYouTubeIframeAPIReady() {
             MY_PROJECTS.forEach(project => {
-                players[project.id] = new YT.Player(`player-${project.id}`, {
-                    videoId: project.youtubeId,
-                    playerVars: {
-                        'autoplay': 0,
-                        'controls': 1,
-                        'modestbranding': 1,
-                        'rel': 0,
-                        'showinfo': 0
-                    },
-                    events: {
-                        'onReady': onPlayerReady
-                    }
-                });
+                if(project.platform === 'youtube') {
+                    players[project.id] = new YT.Player(`player-${project.id}`, {
+                        videoId: project.videoId,
+                        playerVars: {
+                            'autoplay': 0,
+                            'controls': 1,
+                            'modestbranding': 1,
+                            'rel': 0
+                        }
+                    });
+                }
             });
         }
 
-        function onPlayerReady(event) {
-            // Player is loaded and ready for instructions
-        }
-
         /**
-         * Playback Logic
-         * Hides the custom overlay and starts the video
+         * Global Playback Trigger
          */
-        function initiatePlayback(id) {
+        function initiatePlayback(id, platform) {
             const overlay = document.getElementById(`overlay-${id}`);
             if (overlay) {
-                overlay.style.display = 'none'; // Completely remove interaction layer
+                overlay.style.display = 'none';
             }
             
-            if (players[id] && players[id].playVideo) {
+            if (platform === 'youtube' && players[id] && players[id].playVideo) {
                 players[id].playVideo();
             }
+            // For Instagram, once the overlay is gone, the iframe becomes interactive.
+            // The user clicks the native IG button to start sound/video.
         }
 
-        // Run rendering on load
         window.addEventListener('DOMContentLoaded', renderProjects);
     </script>
 </body>
