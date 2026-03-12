@@ -22,7 +22,6 @@
         }
 
         body {
-            /* Forced Font Stack: English (Inter), Korean (Pretendard), Chinese (Taipei Sans TC) */
             font-family: 'Inter', 'Pretendard', 'Taipei Sans TC', 'PingFang TC', 'Noto Sans TC', sans-serif;
             background-color: var(--candy-bg);
             color: var(--shelford-blue);
@@ -45,68 +44,73 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .glass-card:hover { transform: translateY(-5px); }
+        .glass-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 25px 50px rgba(29, 43, 68, 0.1);
+        }
 
+        /* Enhanced Video Wrapper - Primary Focus */
         .video-wrapper {
             position: relative;
             width: 100%;
             background: #000;
-            border-radius: 24px;
             overflow: hidden;
-            margin-bottom: 1.5rem;
-            /* Ensures no tiny borders or gaps */
             line-height: 0;
+            /* Edge-to-edge feel */
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* Fixed YouTube Aspect Ratio */
+        /* YouTube: 16:9 - Expanded visual height */
         .yt-aspect { 
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            padding-bottom: 56.25%; 
             height: 0; 
         }
         
-        /* Fixed Instagram Aspect Ratio */
+        /* Instagram: Taller for Reels */
         .ig-aspect { 
-            padding-bottom: 160%; 
+            padding-bottom: 140%; 
             height: 0; 
             background: #fff; 
         }
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            border: 0;
-            /* Prevents image twisting */
+            top: 0; left: 0; width: 100%; height: 100%; border: 0;
             object-fit: cover;
+        }
+
+        /* Text content section */
+        .card-info {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .status-tag {
             background: var(--silk-red);
             color: white;
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             font-weight: 800;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 6px;
             text-transform: uppercase;
             display: inline-block;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
         }
 
-        .label-red { color: var(--silk-red); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-        .label-value { color: var(--shelford-blue); font-weight: 700; font-size: 0.95rem; }
+        .label-red { color: var(--silk-red); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+        .label-value { color: var(--shelford-blue); font-weight: 700; font-size: 1rem; }
 
         .section-header {
-            border-left: 4px solid var(--silk-red);
-            padding-left: 1rem;
-            margin-bottom: 2rem;
+            border-left: 5px solid var(--silk-red);
+            padding-left: 1.25rem;
+            margin-bottom: 2.5rem;
         }
 
-        /* Subheader vertical alignment styling */
         .subheader-line {
             display: block;
             line-height: 1.6;
@@ -117,10 +121,9 @@
 
     <header class="max-w-7xl mx-auto mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-            <h1 class="text-5xl md:text-7xl font-800 font-outfit tracking-tighter uppercase mb-4">
+            <h1 class="text-5xl md:text-7xl font-800 font-outfit tracking-tighter uppercase mb-6">
                 Wei <span style="color: var(--silk-red)">Zih-Yun</span>
             </h1>
-            <!-- Rearranged Subheader Logic -->
             <div class="text-sm md:text-base opacity-60 font-medium tracking-tight">
                 <span class="subheader-line">｜Mixing + Live Vocal + Playback Engineer</span>
                 <span class="subheader-line">｜Arranger</span>
@@ -133,26 +136,26 @@
     </header>
 
     <main class="max-w-7xl mx-auto">
-        <section class="mb-20">
+        <!-- Grid switched to 2 columns on desktop for larger video presence -->
+        <section class="mb-24">
             <div class="section-header">
-                <h2 class="font-outfit text-2xl font-800 uppercase tracking-tight">Featured Sessions</h2>
+                <h2 class="font-outfit text-3xl font-800 uppercase tracking-tight">Featured Sessions</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="youtube-grid"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12" id="youtube-grid"></div>
         </section>
 
         <section>
             <div class="section-header">
-                <h2 class="font-outfit text-2xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
+                <h2 class="font-outfit text-3xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="instagram-grid"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12" id="instagram-grid"></div>
         </section>
     </main>
 
-    <footer class="max-w-7xl mx-auto mt-32 py-10 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
+    <footer class="max-w-7xl mx-auto mt-32 py-12 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
         &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
     </footer>
 
-    <!-- Essential Instagram Script -->
     <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
@@ -177,13 +180,13 @@
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
             
-            // Fixed the logic error here to ensure the YouTube ID is injected properly
+            // Syntax Fix: Ensured ${project.videoId} is properly escaped
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
 
             return `
-                <div class="glass-card p-6 md:p-8">
+                <div class="glass-card">
                     <div class="video-wrapper ${isYT ? 'yt-aspect' : 'ig-aspect'}">
                         <iframe 
                             src="${embedUrl}" 
@@ -192,20 +195,22 @@
                         </iframe>
                     </div>
 
-                    <div class="flex-grow">
-                        <span class="status-tag">${project.type}</span>
-                        <h3 class="text-xl font-800 font-outfit leading-tight mb-1">${project.title}</h3>
-                        <p class="text-sm opacity-60 font-medium mb-6">${project.role}</p>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100">
-                        <div>
-                            <p class="label-red">Artist</p>
-                            <p class="label-value">${project.artist}</p>
+                    <div class="card-info">
+                        <div class="flex-grow">
+                            <span class="status-tag">${project.type}</span>
+                            <h3 class="text-2xl font-800 font-outfit leading-tight mb-2">${project.title}</h3>
+                            <p class="text-sm opacity-60 font-medium mb-8">${project.role}</p>
                         </div>
-                        <div>
-                            <p class="label-red">Location / Venue</p>
-                            <p class="label-value">${project.venue}</p>
+
+                        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-gray-100">
+                            <div>
+                                <p class="label-red">Artist</p>
+                                <p class="label-value">${project.artist}</p>
+                            </div>
+                            <div>
+                                <p class="label-red">Location / Venue</p>
+                                <p class="label-value">${project.venue}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -219,7 +224,6 @@
             document.getElementById('instagram-grid').innerHTML = 
                 INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
 
-            // Reprocess Instagram embeds after dynamic loading
             if (window.instgrm) {
                 window.instgrm.Embeds.process();
             }
