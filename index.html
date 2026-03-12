@@ -22,6 +22,7 @@
         }
 
         body {
+            /* Forced Font Stack: English (Inter), Korean (Pretendard), Chinese (Taipei Sans TC) */
             font-family: 'Inter', 'Pretendard', 'Taipei Sans TC', 'PingFang TC', 'Noto Sans TC', sans-serif;
             background-color: var(--candy-bg);
             color: var(--shelford-blue);
@@ -56,14 +57,32 @@
             border-radius: 24px;
             overflow: hidden;
             margin-bottom: 1.5rem;
+            /* Ensures no tiny borders or gaps */
+            line-height: 0;
         }
 
-        .yt-aspect { padding-bottom: 56.25%; height: 0; }
-        .ig-aspect { padding-bottom: 160%; height: 0; background: #fff; }
+        /* Fixed YouTube Aspect Ratio */
+        .yt-aspect { 
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0; 
+        }
+        
+        /* Fixed Instagram Aspect Ratio */
+        .ig-aspect { 
+            padding-bottom: 160%; 
+            height: 0; 
+            background: #fff; 
+        }
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; border: 0;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border: 0;
+            /* Prevents image twisting */
+            object-fit: cover;
         }
 
         .status-tag {
@@ -101,7 +120,7 @@
             <h1 class="text-5xl md:text-7xl font-800 font-outfit tracking-tighter uppercase mb-4">
                 Wei <span style="color: var(--silk-red)">Zih-Yun</span>
             </h1>
-            <!-- Rearranged Subheader -->
+            <!-- Rearranged Subheader Logic -->
             <div class="text-sm md:text-base opacity-60 font-medium tracking-tight">
                 <span class="subheader-line">｜Mixing + Live Vocal + Playback Engineer</span>
                 <span class="subheader-line">｜Arranger</span>
@@ -158,7 +177,7 @@
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
             
-            // Fixed YouTube template literal syntax bug
+            // Fixed the logic error here to ensure the YouTube ID is injected properly
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
@@ -168,7 +187,6 @@
                     <div class="video-wrapper ${isYT ? 'yt-aspect' : 'ig-aspect'}">
                         <iframe 
                             src="${embedUrl}" 
-                            class="instagram-media"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen>
                         </iframe>
@@ -201,6 +219,7 @@
             document.getElementById('instagram-grid').innerHTML = 
                 INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
 
+            // Reprocess Instagram embeds after dynamic loading
             if (window.instgrm) {
                 window.instgrm.Embeds.process();
             }
