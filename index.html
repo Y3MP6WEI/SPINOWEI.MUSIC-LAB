@@ -141,4 +141,125 @@
 
         <!-- INSTAGRAM SECTION (Bottom 12) -->
         <section>
-            <
+            <div class="section-header">
+                <h2 class="font-outfit text-2xl font-800 uppercase tracking-tight">Live Sessions & Process</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="instagram-grid">
+                <!-- Instagram items will render here -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-32 py-10 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
+        &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- Essential for Instagram handshaking to prevent connection errors -->
+    <script async src="//www.instagram.com/embed.js"></script>
+
+    <script>
+        /**
+         * MANUAL CMS
+         */
+        const YOUTUBE_PROJECTS = [
+            { id: "yt1", type: "STUDIO", title: "GENBLUE - “Merry & Happy” Cover", role: "Recording Engineer", artist: "GENBLUE(젠블루)", venue: "TEN ENTERTAINMENT", videoId: "V4nQFpTLCiE" },
+            { id: "yt2", type: "STUDIO", title: "Modern Solitude", role: "Lead Producer", artist: "Zih-Yun Solo", venue: "Private Facility", videoId: "9bZkp7q19f0" },
+            { id: "yt3", type: "LIVE", title: "Cyberpunk World Tour", role: "Technical Director", artist: "Aesthete 2077", venue: "Global Venues", videoId: "L_jWHffIx5E" }
+        ];
+
+        const INSTAGRAM_PROJECTS = [
+            { id: "ig1", type: "LIVE MIXING", title: "GENBLUE - Color Paper", role: "Mixing / Vocal Recording", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVOQ2pCiXH7" },
+            { id: "ig2", type: "STUDIO", title: "Guitar Session #01", role: "Acoustic Guitarist", artist: "Wei Zih-Yun", venue: "Home Studio", videoId: "C1-60N_h9T3" },
+            { id: "ig3", type: "PROCESS", title: "Vocal Chain Breakdown", role: "Mixing Engineer", artist: "Various Artists", venue: "Studio A", videoId: "C68qS-vug7f" },
+            { id: "ig4", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" }, // Update IDs
+            { id: "ig5", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" },
+            { id: "ig6", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" },
+            { id: "ig7", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" },
+            { id: "ig8", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" },
+            { id: "ig9", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" },
+            { id: "ig10", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" },
+            { id: "ig11", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" },
+            { id: "ig12", type: "LIVE", title: "Playback Setup", role: "Playback Engineer", artist: "The Velvet", venue: "TMC Taipei", videoId: "C1-60N_h9T3" }
+        ];
+
+        const players = {};
+
+        function createCard(project, platform) {
+            const isYT = platform === 'youtube';
+            // Use standard /p/ format for maximum stability
+            const igEmbedUrl = `https://www.instagram.com/p/${project.videoId}/embed/`;
+
+            return `
+                <div class="glass-card p-6 md:p-8">
+                    <div class="video-wrapper ${isYT ? 'yt-aspect' : 'ig-aspect'}">
+                        <!-- Play Overlay -->
+                        <div class="play-overlay" id="overlay-${project.id}" onclick="initiatePlay('${project.id}', '${platform}')">
+                            <div class="play-button-circle">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                        
+                        ${isYT 
+                            ? `<div id="player-${project.id}"></div>`
+                            : `<iframe id="player-${project.id}" src="${igEmbedUrl}" allowtransparency="true" frameborder="0" scrolling="no"></iframe>`
+                        }
+                    </div>
+
+                    <div class="flex-grow">
+                        <span class="status-tag">${project.type}</span>
+                        <h3 class="text-2xl font-800 font-outfit leading-tight mb-1">${project.title}</h3>
+                        <p class="text-sm opacity-60 font-medium mb-6">${project.role}</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100">
+                        <div>
+                            <p class="label-red">Artist</p>
+                            <p class="label-value">${project.artist}</p>
+                        </div>
+                        <div>
+                            <p class="label-red">Location / Venue</p>
+                            <p class="label-value">${project.venue}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAll() {
+            document.getElementById('youtube-grid').innerHTML = 
+                YOUTUBE_PROJECTS.map(p => createCard(p, 'youtube')).join('');
+            
+            document.getElementById('instagram-grid').innerHTML = 
+                INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
+        }
+
+        /**
+         * YT API Ready
+         */
+        function onYouTubeIframeAPIReady() {
+            YOUTUBE_PROJECTS.forEach(project => {
+                players[project.id] = new YT.Player(`player-${project.id}`, {
+                    videoId: project.videoId,
+                    playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0, 'modestbranding': 1 }
+                });
+            });
+        }
+
+        /**
+         * Handle Play Button
+         */
+        function initiatePlay(id, platform) {
+            document.getElementById(`overlay-${id}`).style.display = 'none';
+            if (platform === 'youtube' && players[id]) {
+                players[id].playVideo();
+            }
+            // For Instagram: The overlay is gone, user can tap the native IG play button.
+        }
+
+        window.addEventListener('DOMContentLoaded', renderAll);
+    </script>
+</body>
+</html>
