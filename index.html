@@ -54,7 +54,7 @@
         /* YouTube: 16:9 */
         .yt-aspect { padding-bottom: 56.25%; height: 0; }
         
-        /* Instagram: Taller aspect to prevent scrollbars/twisted look */
+        /* Instagram: Taller aspect */
         .ig-aspect { padding-bottom: 125%; height: 0; }
 
         .video-wrapper iframe {
@@ -62,7 +62,7 @@
             top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
 
-        /* Custom Play Overlay */
+        /* Custom Play Overlay (YouTube only) */
         .play-overlay {
             position: absolute;
             inset: 0;
@@ -104,7 +104,6 @@
         .label-red { color: var(--silk-red); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
         .label-value { color: var(--shelford-blue); font-weight: 700; font-size: 0.95rem; }
 
-        /* Section Dividers */
         .section-header {
             border-left: 4px solid var(--silk-red);
             padding-left: 1rem;
@@ -134,19 +133,15 @@
             <div class="section-header">
                 <h2 class="font-outfit text-2xl font-800 uppercase tracking-tight">Featured Studio Works</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="youtube-grid">
-                <!-- YouTube items will render here -->
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="youtube-grid"></div>
         </section>
 
         <!-- INSTAGRAM SECTION (Bottom 12) -->
         <section>
             <div class="section-header">
-                <h2 class="font-outfit text-2xl font-800 uppercase tracking-tight">Live Sessions & Process</h2>
+                <h2 class="font-outfit text-2xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="instagram-grid">
-                <!-- Instagram items will render here -->
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="instagram-grid"></div>
         </section>
 
     </main>
@@ -155,15 +150,10 @@
         &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
     </footer>
 
-    <!-- Scripts -->
     <script src="https://www.youtube.com/iframe_api"></script>
-    <!-- Essential for Instagram handshaking to prevent connection errors -->
     <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
-        /**
-         * MANUAL CMS
-         */
         const YOUTUBE_PROJECTS = [
             { id: "yt1", type: "STUDIO", title: "GENBLUE - “Merry & Happy (TWICE)” Cover", role: "Recording Engineer", artist: "GENBLUE(젠블루)", venue: "TEN ENTERTAINMENT", videoId: "V4nQFpTLCiE" },
             { id: "yt2", type: "STUDIO", title: "Modern Solitude", role: "Lead Producer", artist: "Zih-Yun Solo", venue: "Private Facility", videoId: "9bZkp7q19f0" },
@@ -176,7 +166,7 @@
             { id: "ig3", type: "CONCERT", title: "GENBLUE '天空沒有極限' (Official Live Video)", role: "Mixing Engineer", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVLpWFwgX8W" },
             { id: "ig4", type: "CONCERT", title: "GENBLUE 'STAR' (Cover by XXIN of GENBLUE)", role: "Mixing Engineer", artist: "XXIN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVV_sqbgY86" },
             { id: "ig5", type: "CONCERT", title: "GENBLUE 'Poker Face' (Cover by LILI of GENBLUE)", role: "Mixing Engineer", artist: "LILI of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWAXchgTld" },
-            { id: "ig6", type: "CONCERT", title: "GENBLUE '我是真的很愛很愛你' (Original by YUAN of GENBLUE) ", role: "Mixing Engineer", artist: "YUAN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWABgaAdQo" },
+            { id: "ig6", type: "CONCERT", title: "GENBLUE '我是真的很愛很愛你' (Original by YUAN of GENBLUE)", role: "Mixing Engineer", artist: "YUAN of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVWABgaAdQo" },
             { id: "ig7", type: "CONCERT", title: "GENBLUE 'Bet On Me' (Cover by AYAKO of GENBLUE)", role: "Mixing Engineer", artist: "AYAKO of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTaY0QiU4F" },
             { id: "ig8", type: "CONCERT", title: "GENBLUE 'Cruel Summer' (Cover by AYEON of GENBLUE)", role: "Mixing Engineer", artist: "AYEON of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTacIoAeN_" },
             { id: "ig9", type: "CONCERT", title: "GENBLUE 'You & Me' (Cover by NICO of GENBLUE)", role: "Mixing Engineer", artist: "NICO of GENBLUE", venue: "Kaohsiung Music Center", videoId: "DVTatGzAc3b" },
@@ -189,18 +179,19 @@
 
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
-            // Use standard /p/ format for maximum stability
             const igEmbedUrl = `https://www.instagram.com/p/${project.videoId}/embed/`;
 
             return `
                 <div class="glass-card p-6 md:p-8">
                     <div class="video-wrapper ${isYT ? 'yt-aspect' : 'ig-aspect'}">
-                        <!-- Play Overlay -->
+                        <!-- Red Overlay ONLY for YouTube -->
+                        ${isYT ? `
                         <div class="play-overlay" id="overlay-${project.id}" onclick="initiatePlay('${project.id}', '${platform}')">
                             <div class="play-button-circle">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
                         </div>
+                        ` : ''}
                         
                         ${isYT 
                             ? `<div id="player-${project.id}"></div>`
@@ -236,9 +227,6 @@
                 INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
         }
 
-        /**
-         * YT API Ready
-         */
         function onYouTubeIframeAPIReady() {
             YOUTUBE_PROJECTS.forEach(project => {
                 players[project.id] = new YT.Player(`player-${project.id}`, {
@@ -248,15 +236,12 @@
             });
         }
 
-        /**
-         * Handle Play Button
-         */
         function initiatePlay(id, platform) {
-            document.getElementById(`overlay-${id}`).style.display = 'none';
-            if (platform === 'youtube' && players[id]) {
-                players[id].playVideo();
+            if (platform === 'youtube') {
+                const overlay = document.getElementById(`overlay-${id}`);
+                if (overlay) overlay.style.display = 'none';
+                if (players[id]) players[id].playVideo();
             }
-            // For Instagram: The overlay is gone, user can tap the native IG play button.
         }
 
         window.addEventListener('DOMContentLoaded', renderAll);
