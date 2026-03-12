@@ -27,46 +27,50 @@
 
         /* Neve Design - Glassmorphism */
         .glass-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 15px 35px rgba(29, 43, 68, 0.05);
-            border-radius: 40px; /* Highly rounded corners */
+            border-radius: 40px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
-        /* Video Container Sizing */
+        /* Video Containers */
         .video-wrapper {
             position: relative;
             width: 100%;
             background: #000;
             border-radius: 24px;
             overflow: hidden;
-            margin-bottom: 1.5rem;
         }
 
-        /* YouTube: 16:9 Aspect Ratio */
-        .yt-aspect { padding-bottom: 56.25%; height: 0; }
+        /* YouTube: Short & Wide */
+        .yt-aspect { padding-bottom: 56.25%; height: 0; margin-bottom: 1rem;}
         
-        /* Instagram: Taller to prevent "Twisted" look */
-        .ig-aspect { padding-bottom: 125%; height: 0; }
+        /* Instagram: Tall & Vertical */
+        .ig-aspect { flex-grow: 1; min-height: 500px; margin-bottom: 1rem; }
+        
+        /* For the Instagram Iframe specifically */
+        .ig-aspect iframe {
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 500px;
+        }
 
         .video-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
+            top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
 
-        /* Custom Play Overlay */
+        /* Play Overlay */
         .play-overlay {
             position: absolute;
             inset: 0;
             z-index: 30;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -75,8 +79,8 @@
         }
 
         .play-button-circle {
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             background: var(--silk-red);
             border-radius: 50%;
             display: flex;
@@ -85,142 +89,122 @@
             box-shadow: 0 8px 20px rgba(200, 16, 46, 0.3);
         }
 
-        .play-button-circle svg {
-            fill: white;
-            width: 25px;
-            height: 25px;
-            margin-left: 4px;
-        }
+        .play-button-circle svg { fill: white; width: 22px; height: 22px; margin-left: 4px; }
 
-        /* UI Labels from Screenshot */
+        /* Labels */
         .status-tag {
             background: var(--silk-red);
             color: white;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 800;
-            padding: 3px 10px;
-            border-radius: 6px;
+            padding: 2px 8px;
+            border-radius: 4px;
             text-transform: uppercase;
             display: inline-block;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
-        .label-red {
-            color: var(--silk-red);
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .label-red { color: var(--silk-red); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
+        .label-value { color: var(--shelford-blue); font-weight: 700; font-size: 0.85rem; line-height: 1.2; }
+
+        /* Grid Layout Logic */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
-        .label-value {
-            color: var(--shelford-blue);
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        /* Header Accent Line */
-        .accent-line {
-            height: 2px;
-            width: 40px;
-            background: var(--silk-red);
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 10px;
-            opacity: 0.5;
+        @media (min-width: 1024px) {
+            .featured-grid {
+                grid-template-columns: 1fr 1fr; /* Two main columns */
+            }
+            .yt-stack {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem; /* Spacing between the 2 stacked YT blocks */
+            }
         }
     </style>
 </head>
-<body class="p-6 md:p-16">
+<body class="p-6 md:p-12 lg:p-20">
 
-    <!-- Header Section -->
-    <header class="max-w-6xl mx-auto mb-16">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-            <div>
-                <h1 class="text-5xl md:text-6xl font-800 font-outfit tracking-tighter flex items-center">
-                    WEI<span style="color: var(--silk-red)">ZIH-YUN</span>
-                </h1>
-                <p class="text-sm md:text-base font-medium opacity-60 mt-2">
-                    Mixing + Live Vocal + Playback Engineer ｜ Arranger ｜ Acoustic Guitarist
-                </p>
-            </div>
-            <div class="mt-6 md:mt-0">
-                <span class="accent-line"></span>
-                <span class="text-xs font-bold tracking-widest uppercase opacity-40">Selected Works 24/25</span>
-            </div>
+    <header class="max-w-7xl mx-auto mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
+        <div>
+            <h1 class="text-4xl md:text-6xl font-800 font-outfit tracking-tighter uppercase">
+                Wei <span style="color: var(--silk-red)">Zih-Yun</span>
+            </h1>
+            <p class="text-base opacity-60 mt-2 font-medium">Mixing + Live Vocal + Playback Engineer ｜ Arranger ｜ Acoustic Guitarist</p>
+        </div>
+        <div class="flex gap-4">
+            <div class="h-[2px] w-12 bg-[#C8102E] self-center opacity-30"></div>
+            <span class="text-xs font-bold tracking-[0.2em] uppercase opacity-40">Selected Works 24/25</span>
         </div>
     </header>
 
-    <!-- Project Grid -->
-    <main id="project-grid" class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-        <!-- JS Injected Content -->
+    <main class="max-w-7xl mx-auto">
+        <!-- TOP FEATURED SECTION: 2 YT on left stacking to match 1 IG on right -->
+        <div class="featured-grid mb-12" id="featured-container">
+            <!-- Left Side: 2 YouTube Stack -->
+            <div class="yt-stack" id="yt-stack-container"></div>
+            <!-- Right Side: 1 Instagram Main -->
+            <div id="ig-featured-container"></div>
+        </div>
+
+        <!-- REST OF THE GRID: 11 Instagram Items -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="standard-grid"></div>
     </main>
 
-    <footer class="max-w-6xl mx-auto mt-24 py-10 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest">
-        &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN. ALL RIGHTS RESERVED.
+    <footer class="max-w-7xl mx-auto mt-24 py-10 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
+        &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
     </footer>
 
-    <!-- YouTube API -->
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        /**
-         * MANUAL CMS
-         */
         const MY_PROJECTS = [
-            {
-                id: "p1",
-                platform: "youtube",
-                type: "STUDIO",
-                title: "GENBLUE - “Merry & Happy (TWICE)” Cover",
-                role: "Recording Engineer",
-                artist: "GENBLUE(젠블루)",
-                venue: "TEN ENTERTAINMENT",
-                videoId: "V4nQFpTLCiE"
-            },
-            {
-                id: "p2",
-                platform: "instagram",
-                type: "LIVE MIXING",
-                title: "GENBLUE - Color Paper (Official Live Video)",
-                role: "Mixing Engineer / Vocal Recording Engineer / Concert Executive Music Producer",
-                artist: "GENBLUE(젠블루)",
-                venue: "Kaohsiung Music Center",
-                videoId: "DVOQ2pCiXH7" 
-            }
+            // 3 YouTube Total
+            { id: "yt1", platform: "youtube", type: "STUDIO", title: "GENBLUE - “Merry & Happy” Cover", role: "Recording Engineer", artist: "GENBLUE(젠블루)", venue: "TEN ENTERTAINMENT", videoId: "V4nQFpTLCiE" },
+            { id: "yt2", platform: "youtube", type: "STUDIO", title: "Modern Solitude", role: "Lead Producer", artist: "Zih-Yun Solo", venue: "Private Facility", videoId: "9bZkp7q19f0" },
+            { id: "yt3", platform: "youtube", type: "LIVE", title: "Cyberpunk Tour", role: "Technical Director", artist: "Aesthete 2077", venue: "Global Venues", videoId: "L_jWHffIx5E" },
+            
+            // 12 Instagram Total
+            { id: "ig1", platform: "instagram", type: "LIVE MIXING", title: "GENBLUE - Color Paper", role: "Mixing / Vocal Recording", artist: "GENBLUE(젠블루)", venue: "Kaohsiung Music Center", videoId: "DVOQ2pCiXH7" },
+            { id: "ig2", platform: "instagram", type: "STUDIO", title: "Guitar Session #01", role: "Acoustic Guitarist", artist: "Wei Zih-Yun", venue: "Home Studio", videoId: "C1-60N_h9T3" },
+            { id: "ig3", platform: "instagram", type: "STUDIO", title: "Mixing Workflow", role: "Engineer", artist: "Various Artists", venue: "Studio A", videoId: "C68qS-vug7f" },
+            { id: "ig4", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" },
+            { id: "ig5", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" },
+            { id: "ig6", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" },
+            { id: "ig7", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" },
+            { id: "ig8", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" },
+            { id: "ig9", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" },
+            { id: "ig10", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" },
+            { id: "ig11", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" },
+            { id: "ig12", platform: "instagram", type: "LIVE", title: "Arena Soundcheck", role: "Playback Engineer", artist: "The Velvet", venue: "TMC", videoId: "C1-60N_h9T3" }
         ];
 
         const players = {};
 
-        function renderProjects() {
-            const grid = document.getElementById('project-grid');
-            grid.innerHTML = MY_PROJECTS.map(project => {
-                const isYT = project.platform === 'youtube';
-                
-                return `
-                <div class="glass-card p-6 md:p-8 flex flex-col">
+        function createCard(project) {
+            const isYT = project.platform === 'youtube';
+            return `
+                <div class="glass-card p-6 md:p-8">
                     <div class="video-wrapper ${isYT ? 'yt-aspect' : 'ig-aspect'}">
-                        <!-- Custom Overlay -->
                         <div class="play-overlay" id="overlay-${project.id}" onclick="handlePlay('${project.id}', '${project.platform}')">
                             <div class="play-button-circle">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
                         </div>
-                        
-                        <!-- Player -->
                         ${isYT 
                             ? `<div id="player-${project.id}"></div>`
-                            : `<iframe id="player-${project.id}" src="https://www.instagram.com/p/${project.videoId}/embed/captioned/" allowtransparency="true" frameborder="0" scrolling="no"></iframe>`
+                            : `<iframe id="player-${project.id}" src="https://www.instagram.com/reels/${project.videoId}/embed/" allowtransparency="true" frameborder="0" scrolling="no"></iframe>`
                         }
                     </div>
-
                     <div class="flex-grow">
                         <span class="status-tag">${project.type}</span>
-                        <h3 class="text-2xl font-800 font-outfit leading-tight mb-1">${project.title}</h3>
-                        <p class="text-sm opacity-60 font-medium mb-6">${project.role}</p>
+                        <h3 class="text-xl font-800 font-outfit leading-tight mb-1">${project.title}</h3>
+                        <p class="text-xs opacity-60 font-medium mb-4">${project.role}</p>
                     </div>
-
-                    <div class="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100">
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100">
                         <div>
                             <p class="label-red">Artist</p>
                             <p class="label-value">${project.artist}</p>
@@ -231,40 +215,46 @@
                         </div>
                     </div>
                 </div>
-                `;
-            }).join('');
+            `;
         }
 
-        // YouTube API Initializer
+        function renderAll() {
+            const ytStack = document.getElementById('yt-stack-container');
+            const igFeature = document.getElementById('ig-featured-container');
+            const grid = document.getElementById('standard-grid');
+
+            // 1. Stack 2 YouTube items
+            ytStack.innerHTML = createCard(MY_PROJECTS[0]) + createCard(MY_PROJECTS[1]);
+            
+            // 2. 1 Tall Instagram to match height
+            igFeature.innerHTML = createCard(MY_PROJECTS[3]);
+
+            // 3. The rest (Remaining 1 YT and 11 IG)
+            const remaining = [MY_PROJECTS[2], ...MY_PROJECTS.slice(4)];
+            grid.innerHTML = remaining.map(p => createCard(p)).join('');
+        }
+
         function onYouTubeIframeAPIReady() {
             MY_PROJECTS.forEach(project => {
                 if(project.platform === 'youtube') {
                     players[project.id] = new YT.Player(`player-${project.id}`, {
                         videoId: project.videoId,
-                        playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0 }
+                        playerVars: { 'autoplay': 0, 'controls': 1, 'rel': 0, 'modestbranding': 1 }
                     });
                 }
             });
         }
 
-        /**
-         * Playback Handler
-         */
         function handlePlay(id, platform) {
-            // 1. Hide the overlay immediately
-            const overlay = document.getElementById(`overlay-${id}`);
-            if (overlay) overlay.style.display = 'none';
-
-            // 2. Start playback if YouTube
+            document.getElementById(`overlay-${id}`).style.display = 'none';
             if (platform === 'youtube' && players[id]) {
                 players[id].playVideo();
             }
-            
-            // 3. Instagram Note: Once overlay is gone, user clicks the 
-            // native "Play" button inside the Instagram frame.
+            // For Instagram: The overlay is gone, user clicks native IG play button. 
+            // Using /reels/ ID in the URL ensures better in-page playback.
         }
 
-        window.addEventListener('DOMContentLoaded', renderProjects);
+        window.addEventListener('DOMContentLoaded', renderAll);
     </script>
 </body>
 </html>
