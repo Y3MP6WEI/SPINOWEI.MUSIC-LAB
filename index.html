@@ -25,7 +25,6 @@
 
         .font-outfit { font-family: 'Outfit', sans-serif; }
 
-        /* Neve Design - Glassmorphism Card Style */
         .glass-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -41,7 +40,6 @@
 
         .glass-card:hover { transform: translateY(-5px); }
 
-        /* Video Containers */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -51,18 +49,17 @@
             margin-bottom: 1.5rem;
         }
 
-        /* YouTube: 16:9 aspect ratio */
+        /* YouTube: Native 16:9 */
         .yt-aspect { padding-bottom: 56.25%; height: 0; }
         
-        /* Instagram: Taller 4:5 aspect ratio */
-        .ig-aspect { padding-bottom: 125%; height: 0; }
+        /* Instagram: Taller 160% aspect ratio to accommodate vertical REELS + Instagram Header/Footer */
+        .ig-aspect { padding-bottom: 160%; height: 0; background: #fff; }
 
         .video-wrapper iframe {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%; border: 0;
         }
 
-        /* Labels & Status Tags */
         .status-tag {
             background: var(--silk-red);
             color: white;
@@ -75,19 +72,8 @@
             margin-bottom: 0.75rem;
         }
 
-        .label-red { 
-            color: var(--silk-red); 
-            font-size: 0.7rem; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 0.05em; 
-        }
-
-        .label-value { 
-            color: var(--shelford-blue); 
-            font-weight: 700; 
-            font-size: 0.95rem; 
-        }
+        .label-red { color: var(--silk-red); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .label-value { color: var(--shelford-blue); font-weight: 700; font-size: 0.95rem; }
 
         .section-header {
             border-left: 4px solid var(--silk-red);
@@ -98,7 +84,6 @@
 </head>
 <body class="p-6 md:p-12 lg:p-20">
 
-    <!-- Brand Header -->
     <header class="max-w-7xl mx-auto mb-20 flex flex-col md:flex-row justify-between items-end gap-6">
         <div>
             <h1 class="text-5xl md:text-7xl font-800 font-outfit tracking-tighter uppercase">
@@ -112,8 +97,6 @@
     </header>
 
     <main class="max-w-7xl mx-auto">
-        
-        <!-- YOUTUBE SECTION (Featured Studio Works) -->
         <section class="mb-20">
             <div class="section-header">
                 <h2 class="font-outfit text-2xl font-800 uppercase tracking-tight">Featured Studio Works</h2>
@@ -121,27 +104,21 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="youtube-grid"></div>
         </section>
 
-        <!-- INSTAGRAM SECTION (Concerts & Live Mixing) -->
         <section>
             <div class="section-header">
                 <h2 class="font-outfit text-2xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="instagram-grid"></div>
         </section>
-
     </main>
 
     <footer class="max-w-7xl mx-auto mt-32 py-10 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
         &copy; <script>document.write(new Date().getFullYear())</script> WEI ZIH-YUN
     </footer>
 
-    <!-- Official Instagram Embed Script -->
     <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
-        /**
-         * MANUAL CMS
-         */
         const YOUTUBE_PROJECTS = [
             { id: "yt1", type: "STUDIO", title: "GENBLUE - “Merry & Happy (TWICE)” Cover", role: "Recording Engineer", artist: "GENBLUE(젠블루)", venue: "TEN ENTERTAINMENT", videoId: "V4nQFpTLCiE" },
             { id: "yt2", type: "STUDIO", title: "Modern Solitude", role: "Lead Producer", artist: "Zih-Yun Solo", venue: "Private Facility", videoId: "9bZkp7q19f0" },
@@ -165,9 +142,10 @@
 
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
+            // Added captioned=0 to standardise the height for the grid
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
-                : `https://www.instagram.com/p/${project.videoId}/embed/`;
+                : `https://www.instagram.com/p/${project.videoId}/embed/?captioned=0`;
 
             return `
                 <div class="glass-card p-6 md:p-8">
@@ -181,7 +159,7 @@
 
                     <div class="flex-grow">
                         <span class="status-tag">${project.type}</span>
-                        <h3 class="text-2xl font-800 font-outfit leading-tight mb-1">${project.title}</h3>
+                        <h3 class="text-xl font-800 font-outfit leading-tight mb-1">${project.title}</h3>
                         <p class="text-sm opacity-60 font-medium mb-6">${project.role}</p>
                     </div>
 
