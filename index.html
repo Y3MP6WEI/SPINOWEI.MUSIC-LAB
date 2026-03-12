@@ -7,7 +7,12 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    
+    <!-- Forced Korean Font: Pretendard -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
         :root {
@@ -17,8 +22,13 @@
         }
 
         body {
-            /* Forced Chinese Font: PingFangTC with fallbacks */
-            font-family: 'Inter', 'PingFangTC-Light', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            /* 
+               Forced Font Stack:
+               1. English: Inter
+               2. Korean: Pretendard
+               3. Chinese: Taipei Sans TC (Local/System prioritized)
+            */
+            font-family: 'Inter', 'Pretendard', 'Taipei Sans TC', 'PingFang TC', 'Noto Sans TC', sans-serif;
             background-color: var(--candy-bg);
             color: var(--shelford-blue);
             min-height: 100vh;
@@ -26,9 +36,10 @@
         }
 
         .font-outfit { 
-            font-family: 'Outfit', 'PingFangTC-Light', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif; 
+            font-family: 'Outfit', 'Pretendard', 'Taipei Sans TC', sans-serif; 
         }
 
+        /* Neve Design - Glassmorphism */
         .glass-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -142,7 +153,7 @@
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
             
-            // Fixed the YouTube URL template literal bug
+            // Fixed the YouTube URL syntax error
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
@@ -185,11 +196,9 @@
             document.getElementById('instagram-grid').innerHTML = 
                 INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
 
-            // Force Instagram script to process the dynamically added frames
+            // Force Instagram script to process dynamic iframes
             if (window.instgrm) {
                 window.instgrm.Embeds.process();
-            } else {
-                // If script hasn't loaded yet, it will process on load automatically
             }
         }
 
