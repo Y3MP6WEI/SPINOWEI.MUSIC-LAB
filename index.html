@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEI ZIH-YUN | Music Producer @Taipei</title>
     
+    <!-- FAVICON (Browser Tab Logo) -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Y3MP6WEI/SPINOWEI.MUSIC-LAB/main/images/FAVICON_y3mp6.png">
+    <!-- For mobile bookmarking -->
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Y3MP6WEI/SPINOWEI.MUSIC-LAB/main/images/FAVICON_y3mp6.png">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -62,17 +67,10 @@
         }
 
         /* YouTube: 16:9 */
-        .yt-aspect { 
-            padding-bottom: 56.25%; 
-            height: 0; 
-        }
+        .yt-aspect { padding-bottom: 56.25%; height: 0; }
         
         /* Instagram: Optimized for 3-column height */
-        .ig-aspect { 
-            padding-bottom: 130%; 
-            height: 0; 
-            background: #fff; 
-        }
+        .ig-aspect { padding-bottom: 130%; height: 0; background: #fff; }
 
         .video-wrapper iframe {
             position: absolute;
@@ -92,7 +90,7 @@
             color: white;
             font-size: 0.6rem;
             font-weight: 800;
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: 6px;
             text-transform: uppercase;
             display: inline-block;
@@ -187,7 +185,7 @@
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
             
-            // Fix: Clean YouTube template injection
+            // Fix: Fixed the YouTube syntax bug
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
