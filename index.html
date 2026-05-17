@@ -25,18 +25,13 @@
             --candy-bg: #f4f7f9;
         }
 
-        /* 1. Smooth Scrolling Enable */
+        /* Smooth Scrolling */
         html {
             scroll-behavior: smooth;
         }
 
         body {
-            /* 
-               Forced Font Stack:
-               1. English: Inter
-               2. Korean: Pretendard
-               3. Chinese: Taipei Sans TC (prioritized)
-            */
+            /* Forced Font Stack: English (Inter), Korean (Pretendard), Chinese (Taipei Sans TC) */
             font-family: 'Inter', 'Pretendard', 'Taipei Sans TC', 'PingFang TC', 'Noto Sans TC', sans-serif;
             background-color: var(--candy-bg);
             color: var(--shelford-blue);
@@ -48,7 +43,7 @@
             font-family: 'Outfit', 'Pretendard', 'Taipei Sans TC', sans-serif; 
         }
 
-        /* Neve Design - Glassmorphism */
+        /* Neve Design - Glassmorphism Card Style */
         .glass-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -67,6 +62,7 @@
             box-shadow: 0 20px 40px rgba(29, 43, 68, 0.08);
         }
 
+        /* Video Container Styling */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -76,7 +72,7 @@
         }
 
         .yt-aspect { padding-bottom: 56.25%; height: 0; }
-        .ig-aspect { padding-bottom: 130%; height: 0; background: #fff; }
+        .ig-aspect { padding-bottom: 140%; height: 0; background: #fff; }
 
         .video-wrapper iframe {
             position: absolute;
@@ -91,6 +87,7 @@
             flex-direction: column;
         }
 
+        /* Tag and Label Styles */
         .status-tag {
             background: var(--silk-red);
             color: white;
@@ -117,30 +114,37 @@
             line-height: 1.5;
         }
 
-        /* Expansive Container Control */
+        /* Global Container Size */
         .expansive-container {
-            max-width: 2560px;
+            max-width: 1400px; /* Expansive look */
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Nav Link Hover */
+        /* Navigation Links */
         .nav-link {
             transition: all 0.3s ease;
             display: block;
         }
         .nav-link:hover {
             color: var(--silk-red);
-            transform: translateX(-5px);
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-link:hover {
+                transform: translateY(-2px);
+            }
         }
     </style>
 </head>
 <body class="p-6 md:p-12">
 
-    <!-- Header: Expansive and Perfectly Mirrored -->
-    <header class="expansive-container mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-        <!-- Left Side: Identity & Roles -->
-        <div>
+    <!-- Header: Fully Responsive (Refactored) -->
+    <header class="expansive-container mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 px-2 md:px-0">
+        
+        <!-- Left Side: Identity -->
+        <div class="w-full md:w-auto">
             <h1 class="text-5xl md:text-7xl font-800 font-outfit tracking-tighter uppercase mb-6">
                 SPINO <span style="color: var(--silk-red)">WEI</span>
             </h1>
@@ -151,39 +155,48 @@
             </div>
         </div>
         
-        <!-- Right Side: Mirrored Navigation -->
-        <div class="text-right flex flex-col items-end">
-            <nav class="text-sm md:text-base opacity-60 font-medium tracking-tight mb-6">
-                <a href="#sessions" class="nav-link subheader-line">HIGHLIGHTS ｜</a>
-                <a href="#live" class="nav-link subheader-line">CONTENTS ｜</a>
-                <a href="#contact" class="nav-link subheader-line">CONTACT ｜</a>
+        <!-- Right Side: Navigation (Mobile Row / Desktop Mirrored Stack) -->
+        <div class="w-full md:w-auto flex flex-col items-start md:items-end border-t border-gray-100 pt-8 md:pt-0 md:border-t-0">
+            <nav class="flex flex-row md:flex-col gap-6 md:gap-0 text-sm md:text-base opacity-60 font-medium tracking-tight mb-6 md:mb-8">
+                <a href="#sessions" class="nav-link md:subheader-line">
+                    Sessions<span class="hidden md:inline"> ｜</span>
+                </a>
+                <a href="#live" class="nav-link md:subheader-line">
+                    Live<span class="hidden md:inline"> ｜</span>
+                </a>
+                <a href="#contact" class="nav-link md:subheader-line">
+                    Contact<span class="hidden md:inline"> ｜</span>
+                </a>
             </nav>
-            <span class="text-xs font-bold tracking-[0.2em] uppercase opacity-40"> 👣 MUSIC FOOTPRINTS 2025-2026</span>
+            <span class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase opacity-40"> 
+                MUSIC HIGHLIGHTS 2025-2026
+            </span>
         </div>
     </header>
 
     <main class="expansive-container">
-        <!-- Section: Sessions -->
+        
+        <!-- Section: Featured Sessions -->
         <section id="sessions" class="mb-24 scroll-mt-24">
             <div class="section-header">
                 <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Featured Sessions</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="youtube-grid">
-                <!-- YouTube Cards Render Here -->
+                <!-- YouTube cards will render here -->
             </div>
         </section>
 
-        <!-- Section: Live -->
+        <!-- Section: Concerts & Live Mixing -->
         <section id="live" class="mb-24 scroll-mt-24">
             <div class="section-header">
                 <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="instagram-grid">
-                <!-- Instagram Cards Render Here -->
+                <!-- Instagram cards will render here -->
             </div>
         </section>
 
-        <!-- Section: Contact -->
+        <!-- Section: Contact Section -->
         <section id="contact" class="mb-24 scroll-mt-24">
             <div class="section-header">
                 <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Get In Touch</h2>
@@ -200,11 +213,12 @@
                     </div>
                     <div>
                         <p class="label-red">Location</p>
-                        <p class="label-value">Taipei City</p>
+                        <p class="label-value">Taipei / Taichung City</p>
                     </div>
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer class="expansive-container mt-32 py-12 border-t border-gray-200 text-center opacity-30 text-xs font-bold tracking-widest uppercase">
@@ -237,7 +251,7 @@
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
             
-            // Syntax Fix: Ensured ${project.videoId} is properly utilized
+            // Syntax Fix: Correctly using ${project.videoId} for YouTube and Instagram
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
@@ -255,8 +269,8 @@
                     <div class="card-info">
                         <div class="flex-grow">
                             <span class="status-tag">${project.type}</span>
-                            <h3 class="text-xl font-800 font-outfit leading-tight mb-2">${project.title}</h3>
-                            <p class="text-xs opacity-60 font-medium mb-6">${project.role}</p>
+                            <h3 class="text-xl md:text-2xl font-800 font-outfit leading-tight mb-2">${project.title}</h3>
+                            <p class="text-xs md:text-sm opacity-60 font-medium mb-6 md:mb-8">${project.role}</p>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4 pt-5 border-t border-gray-100">
@@ -281,7 +295,7 @@
             document.getElementById('instagram-grid').innerHTML = 
                 INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
 
-            // Force Instagram script to recognize and process new cards
+            // Reprocess Instagram embeds after dynamic loading
             if (window.instgrm) {
                 window.instgrm.Embeds.process();
             }
