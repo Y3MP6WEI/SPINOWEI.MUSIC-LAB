@@ -31,7 +31,13 @@
         }
 
         body {
-            font-family: 'Inter', 'Pretendard', 'Taipei Sans TC', sans-serif;
+            /* 
+               Forced Font Stack:
+               1. English: Inter
+               2. Korean: Pretendard
+               3. Chinese: Taipei Sans TC (prioritized)
+            */
+            font-family: 'Inter', 'Pretendard', 'Taipei Sans TC', 'PingFang TC', 'Noto Sans TC', sans-serif;
             background-color: var(--candy-bg);
             color: var(--shelford-blue);
             min-height: 100vh;
@@ -42,7 +48,7 @@
             font-family: 'Outfit', 'Pretendard', 'Taipei Sans TC', sans-serif; 
         }
 
-        /* Glassmorphism Neve Design */
+        /* Neve Design - Glassmorphism */
         .glass-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -70,7 +76,7 @@
         }
 
         .yt-aspect { padding-bottom: 56.25%; height: 0; }
-        .ig-aspect { padding-bottom: 160%; height: 0; background: #fff; }
+        .ig-aspect { padding-bottom: 130%; height: 0; background: #fff; }
 
         .video-wrapper iframe {
             position: absolute;
@@ -111,6 +117,7 @@
             line-height: 1.5;
         }
 
+        /* Expansive Container Control */
         .expansive-container {
             max-width: 2560px;
             margin-left: auto;
@@ -120,30 +127,19 @@
         /* Nav Link Hover */
         .nav-link {
             transition: all 0.3s ease;
-            position: relative;
+            display: block;
         }
         .nav-link:hover {
             color: var(--silk-red);
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--silk-red);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
+            transform: translateX(-5px);
         }
     </style>
 </head>
 <body class="p-6 md:p-12">
 
-    <!-- Header: Expansive and Aligned -->
+    <!-- Header: Expansive and Perfectly Mirrored -->
     <header class="expansive-container mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+        <!-- Left Side: Identity & Roles -->
         <div>
             <h1 class="text-5xl md:text-7xl font-800 font-outfit tracking-tighter uppercase mb-6">
                 SPINO <span style="color: var(--silk-red)">WEI</span>
@@ -155,12 +151,12 @@
             </div>
         </div>
         
-        <!-- Feature 1: Minimalist Nav Menu -->
-        <div class="flex flex-col items-end gap-4">
-            <nav class="flex gap-8 text-xs font-bold tracking-[0.2em] uppercase mb-1">
-                <a href="#sessions" class="nav-link">Sessions</a>
-                <a href="#live" class="nav-link">Live</a>
-                <a href="#contact" class="nav-link">Contact</a>
+        <!-- Right Side: Mirrored Navigation -->
+        <div class="text-right flex flex-col items-end">
+            <nav class="text-sm md:text-base opacity-60 font-medium tracking-tight mb-6">
+                <a href="#sessions" class="nav-link subheader-line">Sessions ｜</a>
+                <a href="#live" class="nav-link subheader-line">Live ｜</a>
+                <a href="#contact" class="nav-link subheader-line">Contact ｜</a>
             </nav>
             <span class="text-xs font-bold tracking-[0.2em] uppercase opacity-40"> MUSIC HIGHLIGHTS 2025-2026</span>
         </div>
@@ -168,31 +164,35 @@
 
     <main class="expansive-container">
         <!-- Section: Sessions -->
-        <section id="sessions" class="mb-24 scroll-mt-20">
+        <section id="sessions" class="mb-24 scroll-mt-24">
             <div class="section-header">
                 <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Featured Sessions</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="youtube-grid"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="youtube-grid">
+                <!-- YouTube Cards Render Here -->
+            </div>
         </section>
 
         <!-- Section: Live -->
-        <section id="live" class="mb-24 scroll-mt-20">
+        <section id="live" class="mb-24 scroll-mt-24">
             <div class="section-header">
                 <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="instagram-grid"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="instagram-grid">
+                <!-- Instagram Cards Render Here -->
+            </div>
         </section>
 
-        <!-- Feature 2: Aesthetic Contact Section -->
-        <section id="contact" class="mb-24 scroll-mt-20">
+        <!-- Section: Contact -->
+        <section id="contact" class="mb-24 scroll-mt-24">
             <div class="section-header">
                 <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Get In Touch</h2>
             </div>
-            <div class="glass-card p-8 md:p-12">
+            <div class="glass-card p-10 md:p-16">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div>
                         <p class="label-red">Email</p>
-                        <p class="label-value">spino.wei@example.com</p>
+                        <p class="label-value">spino.music.lab@gmail.com</p>
                     </div>
                     <div>
                         <p class="label-red">Instagram</p>
@@ -211,6 +211,7 @@
         &copy; <script>document.write(new Date().getFullYear())</script> SPINO WEI ｜ TAIPEI
     </footer>
 
+    <!-- Essential Instagram Script -->
     <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
@@ -236,7 +237,7 @@
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
             
-            // FIXED YOUTUBE SYNTAX ERROR:
+            // Syntax Fix: Ensured ${project.videoId} is properly utilized
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
@@ -280,6 +281,7 @@
             document.getElementById('instagram-grid').innerHTML = 
                 INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
 
+            // Force Instagram script to recognize and process new cards
             if (window.instgrm) {
                 window.instgrm.Embeds.process();
             }
