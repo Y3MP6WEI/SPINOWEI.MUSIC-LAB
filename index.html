@@ -25,28 +25,18 @@
             --candy-bg: #f4f7f9;
         }
 
-        /* 1. Smooth Scrolling Enable */
-        html {
-            scroll-behavior: smooth;
-        }
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
 
         body {
-            /* 
-               Forced Font Stack:
-               1. English: Inter
-               2. Korean: Pretendard
-               3. Chinese: Taipei Sans TC (prioritized)
-            */
-            font-family: 'Inter', 'Pretendard', 'Taipei Sans TC', 'PingFang TC', 'Noto Sans TC', sans-serif;
+            font-family: 'Inter', 'Pretendard', 'Taipei Sans TC', sans-serif;
             background-color: var(--candy-bg);
             color: var(--shelford-blue);
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
         }
 
-        .font-outfit { 
-            font-family: 'Outfit', 'Pretendard', 'Taipei Sans TC', sans-serif; 
-        }
+        .font-outfit { font-family: 'Outfit', 'Pretendard', 'Taipei Sans TC', sans-serif; }
 
         /* Neve Design - Glassmorphism */
         .glass-card {
@@ -76,7 +66,7 @@
         }
 
         .yt-aspect { padding-bottom: 56.25%; height: 0; }
-        .ig-aspect { padding-bottom: 130%; height: 0; background: #fff; }
+        .ig-aspect { padding-bottom: 160%; height: 0; background: #fff; }
 
         .video-wrapper iframe {
             position: absolute;
@@ -112,36 +102,26 @@
             margin-bottom: 2.5rem;
         }
 
-        .subheader-line {
-            display: block;
-            line-height: 1.5;
-        }
+        .subheader-line { display: block; line-height: 1.5; }
 
-        /* Expansive Container Control */
         .expansive-container {
-            max-width: 2560px;
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Nav Link Hover */
-        .nav-link {
-            transition: all 0.3s ease;
-            display: block;
-        }
-        .nav-link:hover {
-            color: var(--silk-red);
-            transform: translateX(-5px);
-        }
+        .nav-link { transition: all 0.3s ease; display: block; }
+        .nav-link:hover { color: var(--silk-red); transform: translateX(-3px); }
     </style>
 </head>
 <body class="p-6 md:p-12">
 
-    <!-- Header: Expansive and Perfectly Mirrored -->
-    <header class="expansive-container mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-        <!-- Left Side: Identity & Roles -->
-        <div>
-            <h1 class="text-5xl md:text-7xl font-800 font-outfit tracking-tighter uppercase mb-6">
+    <!-- Header: Fully Responsive & Mirrored -->
+    <header class="expansive-container mb-12 md:mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 px-2 md:px-0">
+        
+        <!-- Left Side: Identity -->
+        <div class="w-full md:w-auto">
+            <h1 class="text-4xl md:text-5xl lg:text-7xl font-800 font-outfit tracking-tighter uppercase mb-4 md:mb-6">
                 SPINO <span style="color: var(--silk-red)">WEI</span>
             </h1>
             <div class="text-sm md:text-base opacity-60 font-medium tracking-tight">
@@ -151,14 +131,20 @@
             </div>
         </div>
         
-        <!-- Right Side: Mirrored Navigation -->
-        <div class="text-right flex flex-col items-end">
-            <nav class="text-sm md:text-base opacity-60 font-medium tracking-tight mb-6">
-                <a href="#sessions" class="nav-link subheader-line">HIGHLIGHTS ｜</a>
-                <a href="#live" class="nav-link subheader-line">CONTENTS ｜</a>
-                <a href="#contact" class="nav-link subheader-line">CONTACT ｜</a>
+        <!-- Right Side: Navigation & Highlights -->
+        <div class="w-full md:w-auto flex flex-col items-start md:items-end border-t border-gray-100 pt-6 md:pt-0 md:border-t-0">
+            <nav class="flex flex-row md:flex-col gap-6 md:gap-0 text-sm md:text-base opacity-60 font-medium tracking-tight mb-4 md:mb-6">
+                <a href="#sessions" class="nav-link md:subheader-line">
+                    HIGHLIGHTS<span class="hidden md:inline"> ｜</span>
+                </a>
+                <a href="#live" class="nav-link md:subheader-line">
+                    CONTENTS<span class="hidden md:inline"> ｜</span>
+                </a>
+                <a href="#contact" class="nav-link md:subheader-line">
+                    CONTACT<span class="hidden md:inline"> ｜</span>
+                </a>
             </nav>
-            <span class="text-xs font-bold tracking-[0.2em] uppercase opacity-40"> 👣 MUSIC FOOTPRINTS 2025-2026</span>
+            <span class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase opacity-40"> 👣 MUSIC FOOTPRINTS 2025-2026</span>
         </div>
     </header>
 
@@ -168,9 +154,7 @@
             <div class="section-header">
                 <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Featured Sessions</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="youtube-grid">
-                <!-- YouTube Cards Render Here -->
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="youtube-grid"></div>
         </section>
 
         <!-- Section: Live -->
@@ -178,9 +162,7 @@
             <div class="section-header">
                 <h2 class="font-outfit text-2xl md:text-3xl font-800 uppercase tracking-tight">Concerts & Live Mixing</h2>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="instagram-grid">
-                <!-- Instagram Cards Render Here -->
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10" id="instagram-grid"></div>
         </section>
 
         <!-- Section: Contact -->
@@ -192,15 +174,15 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div>
                         <p class="label-red">Email</p>
-                        <p class="label-value">y3mp6wei@gmail.com</p>
+                        <p class="label-value text-sm md:text-base">y3mp6wei@gmail.com</p>
                     </div>
                     <div>
                         <p class="label-red">Instagram</p>
-                        <p class="label-value">@spinowei</p>
+                        <p class="label-value text-sm md:text-base">@spinowei</p>
                     </div>
                     <div>
                         <p class="label-red">Location</p>
-                        <p class="label-value">Taipei City</p>
+                        <p class="label-value text-sm md:text-base">Taipei City</p>
                     </div>
                 </div>
             </div>
@@ -211,7 +193,6 @@
         &copy; <script>document.write(new Date().getFullYear())</script> SPINO WEI ｜ TAIPEI
     </footer>
 
-    <!-- Essential Instagram Script -->
     <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
@@ -236,8 +217,6 @@
 
         function createCard(project, platform) {
             const isYT = platform === 'youtube';
-            
-            // Syntax Fix: Ensured ${project.videoId} is properly utilized
             const embedUrl = isYT 
                 ? `https://www.youtube.com/embed/${project.videoId}?rel=0&modestbranding=1`
                 : `https://www.instagram.com/p/${project.videoId}/embed/`;
@@ -251,14 +230,12 @@
                             allowfullscreen>
                         </iframe>
                     </div>
-
                     <div class="card-info">
                         <div class="flex-grow">
                             <span class="status-tag">${project.type}</span>
                             <h3 class="text-xl font-800 font-outfit leading-tight mb-2">${project.title}</h3>
                             <p class="text-xs opacity-60 font-medium mb-6">${project.role}</p>
                         </div>
-
                         <div class="grid grid-cols-2 gap-4 pt-5 border-t border-gray-100">
                             <div>
                                 <p class="label-red">Artist</p>
@@ -275,16 +252,9 @@
         }
 
         function renderAll() {
-            document.getElementById('youtube-grid').innerHTML = 
-                YOUTUBE_PROJECTS.map(p => createCard(p, 'youtube')).join('');
-            
-            document.getElementById('instagram-grid').innerHTML = 
-                INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
-
-            // Force Instagram script to recognize and process new cards
-            if (window.instgrm) {
-                window.instgrm.Embeds.process();
-            }
+            document.getElementById('youtube-grid').innerHTML = YOUTUBE_PROJECTS.map(p => createCard(p, 'youtube')).join('');
+            document.getElementById('instagram-grid').innerHTML = INSTAGRAM_PROJECTS.map(p => createCard(p, 'instagram')).join('');
+            if (window.instgrm) { window.instgrm.Embeds.process(); }
         }
 
         window.addEventListener('DOMContentLoaded', renderAll);
